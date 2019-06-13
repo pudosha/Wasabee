@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Wasabee</string>
+    <string name="title_activity_starting_up">StartingUpActivity</string>
 </resources>
