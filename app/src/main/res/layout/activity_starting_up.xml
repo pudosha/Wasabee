@@ -11,7 +11,7 @@
             android:text="Sign up"
             android:layout_width="150dp"
             android:layout_height="100dp"
-            android:id="@+id/buttonSignUp" android:textSize="32dp"
+            android:id="@+id/signUpButton" android:textSize="32dp"
             app:layout_constraintEnd_toEndOf="@+id/textWelcome"
             android:layout_marginTop="1dp" app:layout_constraintTop_toBottomOf="@+id/textWelcome"
             android:layout_marginBottom="160dp" app:layout_constraintBottom_toBottomOf="parent"/>
@@ -19,7 +19,7 @@
             android:text="Log in"
             android:layout_width="150dp"
             android:layout_height="100dp"
-            android:id="@+id/buttonLogIn" android:textSize="32dp"
+            android:id="@+id/loginButton" android:textSize="32dp"
             app:layout_constraintStart_toStartOf="@+id/textWelcome"
             android:layout_marginTop="1dp" app:layout_constraintTop_toBottomOf="@+id/textWelcome"
             android:layout_marginBottom="160dp" app:layout_constraintBottom_toBottomOf="parent"/>

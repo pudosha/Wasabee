@@ -11,9 +11,12 @@ class StartingUpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_starting_up)
 
-        buttonLogIn.setOnClickListener {
-            val myCoolIntent = Intent(this, LoginActivity::class.java)
-            startActivity(myCoolIntent)
+        loginButton.setOnClickListener {
+            startActivity(Intent(this, LoginActivity::class.java))
+        }
+
+        signUpButton.setOnClickListener {
+            startActivity(Intent(this, SignUpActivity::class.java))
         }
 
     }
