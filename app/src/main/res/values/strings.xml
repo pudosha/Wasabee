@@ -16,4 +16,8 @@
     <string name="login_failed">"Login failed"</string>
     <string name="sign_up">"Sign up"</string>
     <string name="email">"E-mail"</string>
+    <string name="chats">"Chats"</string>
+    <string name="friends">"Friends"</string>
+    <string name="cart">"Cart"</string>
+    <string name="settings">"Settings"</string>
 </resources>
