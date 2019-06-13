@@ -9,6 +9,10 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".CreateChatActivity">
+        </activity>
+        <activity android:name=".NewChatPeopleActivity">
+        </activity>
         <activity android:name=".ChatListActivity">
         </activity>
         <activity android:name=".MainMenuActivity">
