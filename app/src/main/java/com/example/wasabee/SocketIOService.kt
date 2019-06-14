@@ -2,7 +2,9 @@ package com.example.wasabee
 
 import android.app.Service
 import android.content.Intent
+import android.os.Binder
 import android.os.IBinder
+import android.util.Log
 import android.widget.Toast
 import com.github.nkzawa.socketio.client.IO
 import com.github.nkzawa.socketio.client.Socket
@@ -11,19 +13,14 @@ import org.json.JSONObject
 
 
 class SocketIOService : Service() {
-
-    override fun onBind(p0: Intent?): IBinder? {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-
     private var io: Socket? = null
+    var mBinder: IBinder = LocalBinder()
 
     override fun onCreate() {
         try {
-            this.io = IO.socket("http://127.0.0.1")
+            this.io = IO.socket("http://192.168.0.135:8080")
+            this.io!!.on("message", onNewMessage);
             this.io!!.connect()
-            this.io!!.on("new message", onNewMessage);
 
         } catch (e: Exception) {
             throw e
@@ -32,15 +29,23 @@ class SocketIOService : Service() {
         super.onCreate()
     }
 
-    private val onNewMessage = Emitter.Listener { args ->
-        val data = args[0] as JSONObject
-
-        Toast.makeText(getApplicationContext(), data.toString(), Toast.LENGTH_SHORT).show();
+    override fun onBind(intent: Intent): IBinder? {
+        return mBinder
     }
 
-    fun onHandleIntent(message: Intent?) {
+    inner class LocalBinder : Binder() {
+        val serverInstance: SocketIOService
+            get() = this@SocketIOService
+    }
+
+    private val onNewMessage = Emitter.Listener { args ->
+        val data = args[0] as JSONObject
+        Log.d("newMessage", data.toString())
+    }
+
+    fun sendMessage(message: String) {
         try {
-            io!!.emit(message!!.dataString);
+            io!!.emit("message", message);
         } catch (e: Exception) {
 
         }
