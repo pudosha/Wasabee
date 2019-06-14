@@ -23,6 +23,10 @@ class StartingUpActivity : AppCompatActivity() {
             startActivity(Intent(this, MainMenuActivity::class.java))
         }
 
+        goToMessagesButton.setOnClickListener {
+            startActivity(Intent(this, MessageListActivity::class.java))
+        }
+
     }
 
 }
