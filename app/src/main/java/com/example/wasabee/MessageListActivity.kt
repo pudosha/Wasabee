@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wasabee.data.model.Message
 import com.example.wasabee.data.model.User
+import kotlinx.android.synthetic.main.activity_message_list.*
 
 class MessageListActivity : AppCompatActivity() {
 
@@ -23,22 +24,21 @@ class MessageListActivity : AppCompatActivity() {
 
         addMessages()
 
-        viewManager = LinearLayoutManager(this)
-        viewAdapter = MessageListAdapter(messages, this)
+        recyclerview_message_list.layoutManager = LinearLayoutManager(this)
 
-        recyclerView = findViewById<RecyclerView>(R.id.recyclerview_message_list).apply {
-            // use a linear layout manager
-            layoutManager = viewManager
+        val mAdapter = MessageListAdapter(messages, this)
+        recyclerview_message_list.adapter = mAdapter
 
-            // specify an viewAdapter (see also next example)
-            adapter = viewAdapter
-        }
+        val user = User("1", "Sir", "3")
+        val message = Message("hey!", user, "11:05")
+        messages.add(message)
+
     }
 
     // Adds animals to the empty animals ArrayList
     fun addMessages() {
-        val user = User("1", "2", "3")
-        val message = Message("4", user, "5")
+        val user = User("1", "exampleUser1", "3")
+        val message = Message("test message", user, "11:04")
         messages.add(message)
     }
 }

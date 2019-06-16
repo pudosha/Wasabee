@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.wasabee.data.model.Message
 import kotlinx.android.synthetic.main.item_message_sent.view.*
 
-class MessageListAdapter(val items : ArrayList<Message>, val context: Context) : RecyclerView.Adapter<ViewHolder>() {
+class MessageListAdapter1(val items : ArrayList<Message>, val context: Context) : RecyclerView.Adapter<ViewHolder>() {
 
     // Gets the number of animals in the list
     override fun getItemCount(): Int {
