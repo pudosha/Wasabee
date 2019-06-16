@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="com.example.wasabee.MessageListActivity"
-        android:background="@drawable/default_background">
+        style="@style/LayoutStyle">
 
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview_message_list"
