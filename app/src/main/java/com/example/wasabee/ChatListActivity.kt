@@ -14,7 +14,7 @@ class ChatListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_chat_list)
 
 
-        val chats = Array(10) {i -> "Chat $i, message $i, time $i"}
+        val chats = Array(10) {i -> "Chat $i, Message $i, time $i"}
         val chatsAdapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, chats)
         chosenPeopleList.adapter = chatsAdapter
         chosenPeopleList.setOnItemClickListener { parent, view, position, id ->

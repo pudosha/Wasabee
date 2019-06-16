@@ -19,7 +19,7 @@ class SocketIOService : Service() {
     override fun onCreate() {
         try {
             this.io = IO.socket("http://192.168.0.135:8080")
-            this.io!!.on("message", onNewMessage);
+            this.io!!.on("Message", onNewMessage);
             this.io!!.connect()
 
         } catch (e: Exception) {
@@ -45,7 +45,7 @@ class SocketIOService : Service() {
 
     fun sendMessage(message: String) {
         try {
-            io!!.emit("message", message);
+            io!!.emit("Message", message);
         } catch (e: Exception) {
 
         }
