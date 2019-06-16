@@ -45,9 +45,9 @@ class SocketIOService : Service() {
 
     fun sendMessage(message: String) {
         try {
-            io!!.emit("Message", message);
+            io!!.emit("message", message);
         } catch (e: Exception) {
-
+            Log.d("socketio", e.toString())
         }
     }
 }
