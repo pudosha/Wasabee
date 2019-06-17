@@ -8,6 +8,7 @@ import android.util.Log
 import com.github.nkzawa.socketio.client.IO
 import com.github.nkzawa.socketio.client.Socket
 import com.github.nkzawa.emitter.Emitter
+import com.google.gson.JsonObject
 import org.json.JSONObject
 
 
@@ -21,7 +22,7 @@ class SocketIOService : Service() {
             val token = getSharedPreferences(preferenceFile, 0).getString("token", null)
             val options = IO.Options()
             options.query = "authToken=$token"
-            this.io = IO.socket("http://192.168.43.128:8080", options)
+            this.io = IO.socket("http://192.168.0.135:8080", options)
             this.io!!.on("message", onNewMessage);
             this.io!!.connect()
 
@@ -46,9 +47,9 @@ class SocketIOService : Service() {
         Log.d("newMessage", data.toString())
     }
 
-    fun sendMessage(message: String) {
+    fun sendMessage(message: JsonObject) {
         try {
-            io!!.emit("message", message);
+            io!!.emit("newMessage", message);
         } catch (e: Exception) {
             Log.d("socketio", e.toString())
         }
