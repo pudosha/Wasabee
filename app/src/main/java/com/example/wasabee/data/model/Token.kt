@@ -15,5 +15,4 @@ data class Token(
     @SerializedName("token")
     @Expose
     var token: String? = null
-
 )

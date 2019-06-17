@@ -1,6 +1,7 @@
 package com.example.wasabee
 
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -35,6 +36,11 @@ class LoginActivity : AppCompatActivity() {
 
                         Toast.makeText(this@LoginActivity, res.message, Toast.LENGTH_LONG).show()
                         if (res.success) {
+                            val preferenceFile = applicationContext.getString(R.string.preference_file_key)
+                            with(getSharedPreferences(preferenceFile, 0).edit()) {
+                                putString("token", res.token)
+                                apply()
+                            }
                             startActivity(Intent(this@LoginActivity, MainMenuActivity::class.java))
                             //TODO("Save token")
                         } else {
@@ -43,12 +49,13 @@ class LoginActivity : AppCompatActivity() {
                     }
 
                     override fun onFailure(call: Call<Token>, t: Throwable) {
-                        Toast.makeText(this@LoginActivity,
-                            "Error occurred while getting request!", Toast.LENGTH_LONG).show()
+                        Toast.makeText(
+                            this@LoginActivity,
+                            "Error occurred while getting request!", Toast.LENGTH_LONG
+                        ).show()
                     }
                 })
         }
 
     }
-
 }

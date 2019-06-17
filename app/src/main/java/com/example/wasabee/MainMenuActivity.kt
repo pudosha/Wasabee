@@ -11,6 +11,7 @@ class MainMenuActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val intent = Intent(this, SocketIOService::class.java)
         startService(intent)
 
         setContentView(R.layout.activity_main_menu)
