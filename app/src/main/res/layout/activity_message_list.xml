@@ -36,7 +36,7 @@
 
         <EditText
                 android:id="@+id/edittext_chatbox"
-                android:hint="Enter message"
+                android:hint="@string/enter_message"
                 android:background="@android:color/transparent"
                 android:layout_gravity="center"
                 android:layout_marginLeft="16dp"
@@ -48,7 +48,7 @@
 
         <Button
                 android:id="@+id/button_chatbox_send"
-                android:text="SEND"
+                android:text="@string/send_message"
                 android:textSize="14sp"
                 android:background="?attr/selectableItemBackground"
                 android:layout_width="64dp"

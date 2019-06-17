@@ -6,5 +6,6 @@
     <color name="colorMessageReceived">#312200</color>
     <color name="colorMessageSent">#E9AE0A</color>
     <color name="colorMessageText">#ffffff</color>
-    <color name="colorText">#312200</color>
+    <color name="colorTextBlack">#312200</color>
+    <color name="colorTextWhite">#FFFFFF</color>
 </resources>
