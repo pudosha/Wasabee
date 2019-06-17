@@ -27,22 +27,22 @@ class SignUpActivity : AppCompatActivity() {
 
             if (username.length == 0 || password.length == 0) {
                 Toast.makeText(this@SignUpActivity, "You can't have empty strings as login or password", Toast.LENGTH_LONG).show()
-                edittext_password_sign_up.text.clear()
-                edittext_repeat_password_sign_up.text.clear()
+                // edittext_password_sign_up.text.clear()
+                // edittext_repeat_password_sign_up.text.clear()
                 return@setOnClickListener
             }
 
             val password_min_length: Int = 7
             if (password.length < password_min_length) {
                 Toast.makeText(this@SignUpActivity, "The password has to be at least $password_min_length characters long", Toast.LENGTH_LONG).show()
-                edittext_password_sign_up.text.clear()
-                edittext_repeat_password_sign_up.text.clear()
+                // edittext_password_sign_up.text.clear()
+                // edittext_repeat_password_sign_up.text.clear()
                 return@setOnClickListener
             }
             if (password != repeatedPassword) {
                 Toast.makeText(this@SignUpActivity, "The passwords are different", Toast.LENGTH_LONG).show()
-                edittext_password_sign_up.text.clear()
-                edittext_repeat_password_sign_up.text.clear()
+                // edittext_password_sign_up.text.clear()
+                // edittext_repeat_password_sign_up.text.clear()
                 return@setOnClickListener
             }
 
@@ -53,7 +53,7 @@ class SignUpActivity : AppCompatActivity() {
                 .enqueue(object : retrofit2.Callback<Token> {
                     override fun onResponse(call: Call<Token>, response: Response<Token>) {
                         if (response.body() == null) {
-                            Toast.makeText(this@SignUpActivity, "Duck", Toast.LENGTH_LONG).show()
+                            Toast.makeText(this@SignUpActivity, "duck.", Toast.LENGTH_LONG).show()
                             return
                         }
 
@@ -66,16 +66,21 @@ class SignUpActivity : AppCompatActivity() {
                                 apply()
                             }
                             startActivity(Intent(this@SignUpActivity, MainMenuActivity::class.java))
-                        } else {
+                        }
+                        /*
+                        else {
+                            ыыы не хочу вводить пароль 10 раз
                             edittext_password_sign_up.text.clear()
                             edittext_repeat_password_sign_up.text.clear()
+
                         }
+                        */
                     }
 
                     override fun onFailure(call: Call<Token>, t: Throwable) {
                         Toast.makeText(
                             this@SignUpActivity,
-                            "Error occurred while getting request!", Toast.LENGTH_LONG
+                            "Error occurred while getting server request. Please check your connection and try again", Toast.LENGTH_LONG
                         ).show()
                     }
                 })

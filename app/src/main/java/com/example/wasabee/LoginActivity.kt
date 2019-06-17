@@ -8,6 +8,7 @@ import android.widget.Toast
 import com.example.wasabee.data.model.Token
 import com.google.gson.JsonObject
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.activity_sign_up.view.*
 import retrofit2.Call
 import retrofit2.Response
 
@@ -29,7 +30,7 @@ class LoginActivity : AppCompatActivity() {
                 .enqueue(object: retrofit2.Callback<Token> {
                     override fun onResponse(call: Call<Token>, response: Response<Token>) {
                         if (response.body() == null) {
-                            Toast.makeText(this@LoginActivity, "Duck", Toast.LENGTH_LONG).show()
+                            Toast.makeText(this@LoginActivity, "duck.", Toast.LENGTH_LONG).show()
                             return
                         }
                         val res = response.body()!!
@@ -42,15 +43,15 @@ class LoginActivity : AppCompatActivity() {
                                 apply()
                             }
                             startActivity(Intent(this@LoginActivity, MainMenuActivity::class.java))
-                        } else {
-                            edittext_password_login.text.clear()
                         }
+                        // else edittext_password_login.text.clear()
+
                     }
 
                     override fun onFailure(call: Call<Token>, t: Throwable) {
                         Toast.makeText(
                             this@LoginActivity,
-                            "Error occurred while getting request!", Toast.LENGTH_LONG
+                            "Error occurred while getting server request. Please check your connection and try again", Toast.LENGTH_LONG
                         ).show()
                     }
                 })
