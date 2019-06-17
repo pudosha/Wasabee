@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.wasabee.data.model.Message
-import com.example.wasabee.data.model.User
 import kotlinx.android.synthetic.main.activity_message_list.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -38,9 +37,8 @@ class MessageListActivity : AppCompatActivity() {
         recyclerview_message_list.adapter = mAdapter
 
         button_chatbox_send.setOnClickListener {
-            val user = User("1", "Sir", "3")
             val time = date.get(Calendar.HOUR_OF_DAY).toString() + ":" + date.get(Calendar.MINUTE).toString()
-            val message = Message(edittext_chatbox.text.toString(), user, time)
+            val message = Message(edittext_chatbox.text.toString(), time, "Sir")
             messages.add(message)
             mAdapter.notifyItemInserted(messages.size - 1)
             mAdapter.notifyDataSetChanged()
@@ -50,7 +48,7 @@ class MessageListActivity : AppCompatActivity() {
             if (mBounded) {
                 mServer!!.sendMessage(message.toString())
             } else {
-                Toast.makeText(this@MessageListActivity, "Service is connected", 1000).show()
+                Toast.makeText(this@MessageListActivity, "Error sending message", Toast.LENGTH_LONG).show()
             }
         }
     }

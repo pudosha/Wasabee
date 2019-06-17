@@ -33,7 +33,7 @@ public class MessageListAdapter extends RecyclerView.Adapter {
     public int getItemViewType(int position) {
         Message message = mMessageList.get(position);
 
-        if (message.getSender().getFirstName().equals("Sir")) {
+        if (message.getSenderID().equals("Sir")) {
             // If the current user is the sender of the message
             return VIEW_TYPE_MESSAGE_SENT;
         } else {
@@ -108,7 +108,7 @@ public class MessageListAdapter extends RecyclerView.Adapter {
             // Format the stored timestamp into a readable String using method.
             timeText.setText(message.getDate());
 
-            nameText.setText(message.getSender().getFirstName());
+            nameText.setText(message.getSenderID());
 
         }
     }
