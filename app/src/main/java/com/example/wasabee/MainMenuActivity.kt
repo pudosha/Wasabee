@@ -19,7 +19,13 @@ class MainMenuActivity : AppCompatActivity() {
             startActivity(Intent(this, ChatListActivity::class.java))
         }
 
+        logOutButton.setOnClickListener {
+
+            startActivity(Intent(this, StartingUpActivity::class.java))
+        }
+
     }
 
     override fun onBackPressed() {}
+
 }

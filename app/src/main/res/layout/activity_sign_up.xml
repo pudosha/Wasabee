@@ -42,7 +42,7 @@
     <Button
             android:text="@string/sign_up"
             android:layout_width="130dp"
-            style="@style/ButtonStyle"
+            style="@style/ButtonStyleLight"
             android:id="@+id/signUpButton_sign_up" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
             android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
