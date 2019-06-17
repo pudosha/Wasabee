@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
+import android.widget.ListAdapter
 import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_chat_list.*
 

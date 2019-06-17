@@ -10,6 +10,7 @@ public interface JSONPlaceHolderAPI {
     @POST("/login")
     Call<Token> login(@Body JsonObject loginInfo);
 
-
+    @POST("/signUp")
+    Call<Token> signUp(@Body JsonObject signUpInfo);
 
 }

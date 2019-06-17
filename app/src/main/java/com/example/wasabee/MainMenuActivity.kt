@@ -18,5 +18,8 @@ class MainMenuActivity : AppCompatActivity() {
         chatsButton.setOnClickListener {
             startActivity(Intent(this, ChatListActivity::class.java))
         }
+
     }
+
+    override fun onBackPressed() {}
 }

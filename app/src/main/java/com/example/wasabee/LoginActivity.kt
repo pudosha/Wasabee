@@ -3,13 +3,10 @@ package com.example.wasabee
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import com.example.wasabee.data.model.Token
 import com.google.gson.JsonObject
-import com.squareup.okhttp.Callback
 import kotlinx.android.synthetic.main.activity_login.*
-import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Response
 
@@ -23,10 +20,10 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         API = NetworkService.getInstance().getJSONApi()
-        loginButton.setOnClickListener {
+        loginButton_login.setOnClickListener {
             val loginInfo = JsonObject()
-            loginInfo.addProperty("username", edittext_username.text.toString())
-            loginInfo.addProperty("password", edittext_password.text.toString())
+            loginInfo.addProperty("username", edittext_username_login.text.toString())
+            loginInfo.addProperty("password", edittext_password_login.text.toString())
             API.login(loginInfo)
                 .enqueue(object: retrofit2.Callback<Token> {
                     override fun onResponse(call: Call<Token>, response: Response<Token>) {
@@ -39,9 +36,9 @@ class LoginActivity : AppCompatActivity() {
                         Toast.makeText(this@LoginActivity, res.message, Toast.LENGTH_LONG).show()
                         if (res.success) {
                             startActivity(Intent(this@LoginActivity, MainMenuActivity::class.java))
-                            TODO("Save token")
+                            //TODO("Save token")
                         } else {
-                            edittext_password.text.clear()
+                            edittext_password_login.text.clear()
                         }
                     }
 
@@ -53,4 +50,5 @@ class LoginActivity : AppCompatActivity() {
         }
 
     }
+
 }
