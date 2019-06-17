@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Binder
 import android.os.IBinder
 import android.util.Log
-import android.widget.Toast
 import com.github.nkzawa.socketio.client.IO
 import com.github.nkzawa.socketio.client.Socket
 import com.github.nkzawa.emitter.Emitter
@@ -18,8 +17,12 @@ class SocketIOService : Service() {
 
     override fun onCreate() {
         try {
-            this.io = IO.socket("http://192.168.0.135:8080")
-            this.io!!.on("Message", onNewMessage);
+            val preferenceFile = applicationContext.getString(R.string.preference_file_key)
+            val token = getSharedPreferences(preferenceFile, 0).getString("token", null)
+            val options = IO.Options()
+            options.query = "x-access-token=$token"
+            this.io = IO.socket("http://192.168.43.128:8080", options)
+            this.io!!.on("message", onNewMessage);
             this.io!!.connect()
 
         } catch (e: Exception) {
