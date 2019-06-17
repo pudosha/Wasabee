@@ -60,8 +60,12 @@ class SignUpActivity : AppCompatActivity() {
                         val res = response.body()!!
                         Toast.makeText(this@SignUpActivity, res.message, Toast.LENGTH_LONG).show()
                         if (res.success) {
+                            val preferenceFile = applicationContext.getString(R.string.preference_file_key)
+                            with(getSharedPreferences(preferenceFile, 0).edit()) {
+                                putString("token", res.token)
+                                apply()
+                            }
                             startActivity(Intent(this@SignUpActivity, MainMenuActivity::class.java))
-                            //TODO("Save token")
                         } else {
                             edittext_password_sign_up.text.clear()
                             edittext_repeat_password_sign_up.text.clear()

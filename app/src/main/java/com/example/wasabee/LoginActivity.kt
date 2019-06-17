@@ -42,7 +42,6 @@ class LoginActivity : AppCompatActivity() {
                                 apply()
                             }
                             startActivity(Intent(this@LoginActivity, MainMenuActivity::class.java))
-                            //TODO("Save token")
                         } else {
                             edittext_password_login.text.clear()
                         }
