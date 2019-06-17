@@ -49,16 +49,19 @@
             android:text="@string/sign_up"
             android:layout_width="130dp"
             style="@style/ButtonStyleLight"
-            android:id="@+id/signUpButton_sign_up" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            android:id="@+id/signUpButton_sign_up" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
             android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginTop="250dp" app:layout_constraintTop_toTopOf="parent"/>
+            android:layout_marginTop="270dp" app:layout_constraintTop_toTopOf="parent"/>
     <TextView
             android:text="@string/password_requirements"
             android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="20dp"/>
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/edittext_repeat_password_sign_up"
+            android:layout_marginBottom="8dp" app:layout_constraintBottom_toTopOf="@+id/signUpButton_sign_up"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
