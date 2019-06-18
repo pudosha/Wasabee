@@ -25,7 +25,7 @@ class SocketIOService : Service() {
             val token = getSharedPreferences(preferenceFile, 0).getString("token", null)
             val options = IO.Options()
             options.query = "authToken=$token"
-            this.io = IO.socket("http://52.15.191.177", options)
+            this.io = IO.socket("http://192.168.43.128:8080", options)
             this.io!!.on("message", onNewMessage);
             this.io!!.connect()
 
@@ -50,12 +50,12 @@ class SocketIOService : Service() {
 
         val preferenceFile = applicationContext.getString(R.string.preference_file_key)
         if (getSharedPreferences(preferenceFile, 0).getBoolean("isInMessageListActivity", false)) {
-            //val intent = Intent("updates")
+            Log.d("if", "abc")
             val intent = Intent("updates")
             intent.putExtra("updates", args[0].toString())
             sendBroadcast(intent);
         } else {
-
+            Log.d("else", "abc")
         }
         Log.d("updates", args.toString())
     }

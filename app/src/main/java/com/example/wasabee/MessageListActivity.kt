@@ -12,7 +12,9 @@ import com.example.wasabee.SocketIOService.LocalBinder
 import android.widget.Toast
 import android.os.IBinder
 import android.util.Log
+import com.google.gson.Gson
 import com.google.gson.JsonObject
+import com.google.gson.JsonParser
 
 
 class MessageListActivity : AppCompatActivity() {
@@ -24,6 +26,7 @@ class MessageListActivity : AppCompatActivity() {
     private var date = Calendar.getInstance()
     private var mBounded = false
     private var mServer: SocketIOService? = null
+    private lateinit var bReciever: BroadcastReceiver
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,6 +59,7 @@ class MessageListActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
+        bReciever = br();
         val preferenceFile = applicationContext.getString(R.string.preference_file_key)
         with(getSharedPreferences(preferenceFile, 0).edit()) {
             putBoolean("isInMessageListActivity", true)
@@ -69,6 +73,7 @@ class MessageListActivity : AppCompatActivity() {
     override fun onStop() {
         super.onStop()
 
+        unregisterReceiver(bReciever)
         val preferenceFile = applicationContext.getString(R.string.preference_file_key)
         with(getSharedPreferences(preferenceFile, 0).edit()) {
             putBoolean("isInMessageListActivity", false)
@@ -79,14 +84,19 @@ class MessageListActivity : AppCompatActivity() {
     fun br() = object : BroadcastReceiver() {
 
         override fun onReceive(context: Context, intent: Intent) {
-            val update = intent.getStringExtra("updates")
-            Log.d("newUpdate", update)
+            val update = JsonParser().parse(intent.getStringExtra("updates")!!).asJsonObject
+            Log.d("dbg", update.toString())
+            val message = Message(update["message"].asString, update["date"].asString, update["sender"].asString)
+            // json to pojo
+            messages.add(message)
+            mAdapter.notifyItemInserted(messages.size - 1)
+            mAdapter.notifyDataSetChanged()
+
         }
     }.also {receiver ->
         val intFilt = IntentFilter("updates");
         // регистрируем (включаем) BroadcastReceiver
         registerReceiver(receiver, intFilt);
-
     }
 
 
