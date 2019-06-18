@@ -32,8 +32,9 @@ public class MessageListAdapter extends RecyclerView.Adapter {
     @Override
     public int getItemViewType(int position) {
         Message message = mMessageList.get(position);
-
-        if (message.getSenderID().equals("Sir")) {
+        String preferenceFile = mContext.getString(R.string.preference_file_key);
+        String userID = mContext.getSharedPreferences(preferenceFile, 0).getString("userID", null);
+        if (message.getSenderID().equals(userID)) {
             // If the current user is the sender of the message
             return VIEW_TYPE_MESSAGE_SENT;
         } else {

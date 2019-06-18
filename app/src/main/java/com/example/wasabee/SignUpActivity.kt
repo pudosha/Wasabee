@@ -1,10 +1,10 @@
 package com.example.wasabee
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import com.example.wasabee.data.model.Token
+import androidx.appcompat.app.AppCompatActivity
+import com.example.wasabee.data.model.UserData
 import com.google.gson.JsonObject
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import retrofit2.Call
@@ -26,7 +26,11 @@ class SignUpActivity : AppCompatActivity() {
             var repeatedPassword = edittext_repeat_password_sign_up.text.toString()
 
             if (username.length == 0 || password.length == 0) {
-                Toast.makeText(this@SignUpActivity, "You can't have empty strings as login or password", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    this@SignUpActivity,
+                    "You can't have empty strings as login or password",
+                    Toast.LENGTH_LONG
+                ).show()
                 // edittext_password_sign_up.text.clear()
                 // edittext_repeat_password_sign_up.text.clear()
                 return@setOnClickListener
@@ -34,7 +38,11 @@ class SignUpActivity : AppCompatActivity() {
 
             val password_min_length: Int = 7
             if (password.length < password_min_length) {
-                Toast.makeText(this@SignUpActivity, "The password has to be at least $password_min_length characters long", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    this@SignUpActivity,
+                    "The password has to be at least $password_min_length characters long",
+                    Toast.LENGTH_LONG
+                ).show()
                 // edittext_password_sign_up.text.clear()
                 // edittext_repeat_password_sign_up.text.clear()
                 return@setOnClickListener
@@ -50,23 +58,22 @@ class SignUpActivity : AppCompatActivity() {
             signUpInfo.addProperty("password", password)
 
             API.signUp(signUpInfo)
-                .enqueue(object : retrofit2.Callback<Token> {
-                    override fun onResponse(call: Call<Token>, response: Response<Token>) {
+                .enqueue(object : retrofit2.Callback<UserData> {
+                    override fun onResponse(call: Call<UserData>, response: Response<UserData>) {
                         if (response.body() == null) {
                             Toast.makeText(this@SignUpActivity, "duck.", Toast.LENGTH_LONG).show()
                             return
                         }
 
                         val res = response.body()!!
-                        Toast.makeText(this@SignUpActivity, res.message, Toast.LENGTH_LONG).show()
-                        if (res.success) {
-                            val preferenceFile = applicationContext.getString(R.string.preference_file_key)
-                            with(getSharedPreferences(preferenceFile, 0).edit()) {
-                                putString("token", res.token)
-                                apply()
-                            }
-                            startActivity(Intent(this@SignUpActivity, MainMenuActivity::class.java))
+                        Toast.makeText(this@SignUpActivity, "ok", Toast.LENGTH_LONG).show()
+                        val preferenceFile = applicationContext.getString(R.string.preference_file_key)
+                        with(getSharedPreferences(preferenceFile, 0).edit()) {
+                            putString("token", res.token)
+                            putString("userID", res.userID)
+                            apply()
                         }
+                        startActivity(Intent(this@SignUpActivity, MainMenuActivity::class.java))
                         /*
                         else {
                             ыыы не хочу вводить пароль 10 раз
@@ -77,10 +84,11 @@ class SignUpActivity : AppCompatActivity() {
                         */
                     }
 
-                    override fun onFailure(call: Call<Token>, t: Throwable) {
+                    override fun onFailure(call: Call<UserData>, t: Throwable) {
                         Toast.makeText(
                             this@SignUpActivity,
-                            "Error occurred while getting server request. Please check your connection and try again", Toast.LENGTH_LONG
+                            "Error occurred while getting server request. Please check your connection and try again",
+                            Toast.LENGTH_LONG
                         ).show()
                     }
                 })

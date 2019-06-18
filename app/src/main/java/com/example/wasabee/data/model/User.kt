@@ -7,15 +7,15 @@ import com.google.gson.annotations.SerializedName
  * Data class that captures user information for logged in users retrieved from LoginRepository
  */
 data class User(
-    @SerializedName("userId")
+    @SerializedName("userID")
     @Expose
-    val userId: String,
+    val userID: String,
 
     @SerializedName("firstName")
     @Expose
     val firstName: String,
 
-    @SerializedName("userId")
+    @SerializedName("lastName")
     @Expose
     val lastName: String
 )

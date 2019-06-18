@@ -5,14 +5,10 @@ import android.content.Intent
 import android.os.Binder
 import android.os.IBinder
 import android.util.Log
+import com.github.nkzawa.emitter.Emitter
 import com.github.nkzawa.socketio.client.IO
 import com.github.nkzawa.socketio.client.Socket
-import com.github.nkzawa.emitter.Emitter
 import com.google.gson.JsonObject
-import org.json.JSONObject
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
-
-
 
 
 class SocketIOService : Service() {
@@ -25,7 +21,7 @@ class SocketIOService : Service() {
             val token = getSharedPreferences(preferenceFile, 0).getString("token", null)
             val options = IO.Options()
             options.query = "authToken=$token"
-            this.io = IO.socket("http://192.168.43.128:8080", options)
+            this.io = IO.socket("http://192.168.1.141:8080", options)
             this.io!!.on("message", onNewMessage);
             this.io!!.connect()
 
