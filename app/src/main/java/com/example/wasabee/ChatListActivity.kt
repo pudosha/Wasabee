@@ -1,35 +1,66 @@
 package com.example.wasabee
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.content.*
 import android.os.Bundle
-import android.widget.ArrayAdapter
-import android.widget.ListAdapter
-import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.wasabee.data.model.Message
+import kotlinx.android.synthetic.main.activity_message_list.*
+import java.util.*
+import kotlin.collections.ArrayList
+import android.content.Intent
+import com.example.wasabee.SocketIOService.LocalBinder
+import android.widget.Toast
+import android.os.IBinder
+import android.content.ComponentName
+import android.content.ServiceConnection
+import android.util.Log
+import com.example.wasabee.data.model.Chat
+import com.google.gson.JsonObject
 import kotlinx.android.synthetic.main.activity_chat_list.*
 
+
 class ChatListActivity : AppCompatActivity() {
+
+    // Initializing an empty ArrayList to be filled with animals
+    val chats: ArrayList<Chat> = ArrayList()
+
+    private var mAdapter = ChatListAdapter(chats, this)
+    private var date = Calendar.getInstance()
+    private var mBounded = false
+    private var mServer: SocketIOService? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat_list)
 
+        recyclerview_chat_list.layoutManager = LinearLayoutManager(this)
+        recyclerview_chat_list.adapter = mAdapter
 
-        val chats = Array(10) {i -> "Chat $i, Message $i, time $i"}
-        val chatsAdapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, chats)
-        chosenPeopleList.adapter = chatsAdapter
-        chosenPeopleList.setOnItemClickListener { parent, view, position, id ->
-            //inputTxt.setText((view as TextView).text, TextView.BufferType.EDITABLE)
-            (view as TextView).text = (view as TextView).text.toString() + ". read"
-            //TODO: to add unread
+        /*
+        button_chatbox_send.setOnClickListener {
+            val message = JsonObject()
+            // TODO("Actual chat id")
+            message.addProperty("chatId", "123")
+            message.addProperty("message", edittext_chatbox.text.toString())
+            if (mBounded) {
+                mServer!!.sendMessage(message)
+                edittext_chatbox.text.clear()
+            } else {
+                Toast.makeText(this@MessageListActivity, "Error sending message", Toast.LENGTH_LONG).show()
+            }
+
+            /*
+            messages.add(message)
+            mAdapter.notifyItemInserted(messages.size - 1)
+            mAdapter.notifyDataSetChanged()
+            */
+
         }
+        */
 
         newChatButton.setOnClickListener {
             startActivity(Intent(this, NewChatPeopleActivity::class.java))
         }
-    }
-
-    override fun onBackPressed() {
-        startActivity(Intent(this, MainMenuActivity::class.java))
     }
 }

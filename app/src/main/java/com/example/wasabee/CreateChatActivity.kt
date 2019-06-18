@@ -4,7 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
-import kotlinx.android.synthetic.main.activity_chat_list.chosenPeopleList
+//import kotlinx.android.synthetic.main.activity_chat_list.chosenPeopleList
 import kotlinx.android.synthetic.main.activity_create_chat.*
 
 class CreateChatActivity : AppCompatActivity() {
