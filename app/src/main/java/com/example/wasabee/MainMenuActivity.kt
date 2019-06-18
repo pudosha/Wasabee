@@ -1,8 +1,10 @@
 package com.example.wasabee
 
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.content.edit
 import kotlinx.android.synthetic.main.activity_main_menu.*
 import kotlinx.android.synthetic.main.activity_starting_up.*
 
@@ -21,8 +23,13 @@ class MainMenuActivity : AppCompatActivity() {
         }
 
         logOutButton.setOnClickListener {
-
+            val preferenceFile = applicationContext.getString(R.string.preference_file_key)
+            getSharedPreferences(preferenceFile, 0).edit().remove("token").apply()
             startActivity(Intent(this, StartingUpActivity::class.java))
+        }
+
+        goToMessagesButton2.setOnClickListener {
+            startActivity(Intent(this, MessageListActivity::class.java))
         }
 
     }
