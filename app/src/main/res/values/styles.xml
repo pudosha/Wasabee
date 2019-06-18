@@ -27,7 +27,7 @@
 
 
     <style name="ButtonStyleLight">
-        <item name="android:background">@drawable/yellow_button_2</item>
+        <item name="android:background">@drawable/vanilla_button_1</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/colorTextBlack</item>
@@ -39,7 +39,7 @@
     </style>
 
     <style name="ButtonStyleDark" parent="@style/ButtonStyleLight">
-        <item name="android:background">@drawable/brown_button_2</item>
+        <item name="android:background">@drawable/brown_button_super_dark</item>
         <item name="android:textColor">@color/colorTextWhite</item>
         <!--change colours pls-->
     </style>
