@@ -28,6 +28,10 @@ class MainMenuActivity : AppCompatActivity() {
             startActivity(Intent(this, StartingUpActivity::class.java))
         }
 
+        goToMessagesButton2.setOnClickListener {
+            startActivity(Intent(this, MessageListActivity::class.java))
+        }
+
     }
 
     override fun onBackPressed() {}

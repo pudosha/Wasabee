@@ -23,5 +23,6 @@
     <string name="createChat">Create chat</string>
     <string name="enter_message">Enter message</string>
     <string name="send_message">send</string>
+    <string name="chat_info">Chat info</string>
     <string name="preference_file_key">com.example.wasabee.preference_file</string>
 </resources>
