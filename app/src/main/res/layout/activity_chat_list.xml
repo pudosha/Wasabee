@@ -14,7 +14,7 @@
             android:layout_marginTop="60dp">
 
         <Button
-                android:text="@string/newChat"
+                android:text="@string/new_chat"
                 android:id="@+id/newChatButton"
                 android:layout_width="90dp"
                 style="@style/ButtonStyleDark"

@@ -17,12 +17,14 @@
     <string name="settings">Settings</string>
     <string name="edit">Edit</string>
     <string name="search">Search</string>
-    <string name="newChat">New chat</string>
+    <string name="new_chat">New chat</string>
     <string name="next">Next</string>
     <string name="group_name">Group name</string>
-    <string name="createChat">Create chat</string>
+    <string name="create_chat">Create chat</string>
     <string name="enter_message">Enter message</string>
     <string name="send_message">send</string>
     <string name="chat_info">Chat info</string>
+    <string name="ok">Ok</string>
+    <string name="back_to_chats">Go back to chats</string>
     <string name="preference_file_key">com.example.wasabee.preference_file</string>
 </resources>

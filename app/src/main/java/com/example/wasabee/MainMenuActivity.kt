@@ -34,6 +34,8 @@ class MainMenuActivity : AppCompatActivity() {
 
     }
 
-    override fun onBackPressed() {}
+    override fun onBackPressed() {
+        moveTaskToBack(false)
+    }
 
 }

@@ -8,9 +8,12 @@ import com.example.wasabee.data.model.Message
 import kotlinx.android.synthetic.main.activity_message_list.*
 import java.util.*
 import kotlin.collections.ArrayList
+import android.content.Intent
 import com.example.wasabee.SocketIOService.LocalBinder
 import android.widget.Toast
 import android.os.IBinder
+import android.content.ComponentName
+import android.content.ServiceConnection
 import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.JsonObject
@@ -53,6 +56,10 @@ class MessageListActivity : AppCompatActivity() {
             mAdapter.notifyDataSetChanged()
             */
 
+        }
+
+        chatInfo.setOnClickListener {
+            startActivity(Intent(this, ChatInfoActivity::class.java))
         }
     }
 
@@ -102,15 +109,21 @@ class MessageListActivity : AppCompatActivity() {
 
     var mConnection: ServiceConnection = object : ServiceConnection {
         override fun onServiceDisconnected(name: ComponentName) {
+            //Toast.makeText(this@MessageListActivity, "Service is disconnected", 1000).show()
             mBounded = false
             mServer = null
         }
 
         override fun onServiceConnected(name: ComponentName, service: IBinder) {
+            //Toast.makeText(this@MessageListActivity, "Service is connected", 1000).show()
             mBounded = true
             val mLocalBinder = service as LocalBinder
             mServer = mLocalBinder.serverInstance
         }
+    }
+
+    override fun onBackPressed() {
+        startActivity(Intent(this, ChatListActivity::class.java))
     }
 
 }
