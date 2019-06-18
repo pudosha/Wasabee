@@ -8,7 +8,11 @@ import android.util.Log
 import com.github.nkzawa.socketio.client.IO
 import com.github.nkzawa.socketio.client.Socket
 import com.github.nkzawa.emitter.Emitter
+import com.google.gson.JsonObject
 import org.json.JSONObject
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
+
+
 
 
 class SocketIOService : Service() {
@@ -42,13 +46,23 @@ class SocketIOService : Service() {
     }
 
     private val onNewMessage = Emitter.Listener { args ->
-        val data = args[0] as JSONObject
-        Log.d("newMessage", data.toString())
+        Log.d("newMessage", args.toString())
+
+        val preferenceFile = applicationContext.getString(R.string.preference_file_key)
+        if (getSharedPreferences(preferenceFile, 0).getBoolean("isInMessageListActivity", false)) {
+            //val intent = Intent("updates")
+            val intent = Intent("updates")
+            intent.putExtra("updates", args[0].toString())
+            sendBroadcast(intent);
+        } else {
+
+        }
+        Log.d("updates", args.toString())
     }
 
-    fun sendMessage(message: String) {
+    fun sendMessage(message: JsonObject) {
         try {
-            io!!.emit("message", message);
+            io!!.emit("newMessage", message);
         } catch (e: Exception) {
             Log.d("socketio", e.toString())
         }
