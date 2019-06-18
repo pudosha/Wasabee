@@ -1,6 +1,6 @@
 package com.example.wasabee
 
-import android.content.Context
+import android.content.*
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -8,12 +8,10 @@ import com.example.wasabee.data.model.Message
 import kotlinx.android.synthetic.main.activity_message_list.*
 import java.util.*
 import kotlin.collections.ArrayList
-import android.content.Intent
 import com.example.wasabee.SocketIOService.LocalBinder
 import android.widget.Toast
 import android.os.IBinder
-import android.content.ComponentName
-import android.content.ServiceConnection
+import android.util.Log
 import com.google.gson.JsonObject
 
 
@@ -58,9 +56,38 @@ class MessageListActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
+        val preferenceFile = applicationContext.getString(R.string.preference_file_key)
+        with(getSharedPreferences(preferenceFile, 0).edit()) {
+            putBoolean("isInMessageListActivity", true)
+            apply()
+        }
+
         val mIntent = Intent(this, SocketIOService::class.java)
         bindService(mIntent, mConnection, Context.BIND_AUTO_CREATE)
-    };
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        val preferenceFile = applicationContext.getString(R.string.preference_file_key)
+        with(getSharedPreferences(preferenceFile, 0).edit()) {
+            putBoolean("isInMessageListActivity", false)
+            apply()
+        }
+    }
+
+    fun br() = object : BroadcastReceiver() {
+
+        override fun onReceive(context: Context, intent: Intent) {
+            val update = intent.getStringExtra("updates")
+            Log.d("newUpdate", update)
+        }
+    }.also {receiver ->
+        val intFilt = IntentFilter("updates");
+        // регистрируем (включаем) BroadcastReceiver
+        registerReceiver(receiver, intFilt);
+
+    }
 
 
     var mConnection: ServiceConnection = object : ServiceConnection {
