@@ -5,7 +5,8 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="8dp">
+        android:paddingTop="8dp" android:background="#FFD78C" android:fadeScrollbars="false"
+        android:layout_marginBottom="1dp">
 
     <TextView
             android:id="@+id/sender_name"
