@@ -14,9 +14,7 @@ import android.widget.Toast
 import android.os.IBinder
 import android.content.ComponentName
 import android.content.ServiceConnection
-
-
-
+import kotlinx.android.synthetic.main.activity_create_chat.*
 
 
 class MessageListActivity : AppCompatActivity() {
@@ -51,6 +49,10 @@ class MessageListActivity : AppCompatActivity() {
                 Toast.makeText(this@MessageListActivity, "Error sending message", Toast.LENGTH_LONG).show()
             }
         }
+
+        chatInfo.setOnClickListener {
+            startActivity(Intent(this, ChatInfoActivity::class.java))
+        }
     }
 
     override fun onStart() {
@@ -81,6 +83,10 @@ class MessageListActivity : AppCompatActivity() {
             val mLocalBinder = service as LocalBinder
             mServer = mLocalBinder.serverInstance
         }
+    }
+
+    override fun onBackPressed() {
+        startActivity(Intent(this, ChatListActivity::class.java))
     }
 
 }

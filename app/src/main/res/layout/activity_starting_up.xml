@@ -17,19 +17,9 @@
             style="@style/TextStyle"
             android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginStart="8dp"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="1dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintHorizontal_bias="0.493"
-            android:layout_marginBottom="8dp" app:layout_constraintBottom_toTopOf="@+id/goToMainMenuButton"
-            app:layout_constraintVertical_bias="0.263"/>
-    <Button
-            android:text="!!Magic go-to-main-menu-button!! (Developers only pls)"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/goToMainMenuButton" android:textSize="20sp" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.26"/>
     <TextView
             android:text="@string/login"
             style="@style/TextStyle"
@@ -51,12 +41,22 @@
             style="@style/ButtonStyleDark"
             android:id="@+id/signUpButton"
             app:layout_constraintTop_toBottomOf="@+id/loginButton_login" android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/goToMainMenuButton"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-            app:layout_constraintHorizontal_bias="0.497" app:layout_constraintVertical_bias="0.133"
+            app:layout_constraintHorizontal_bias="0.497" app:layout_constraintVertical_bias="0.060000002"
             android:textSize="25sp"
             android:paddingBottom="10dp"/>
+
+    <!--
+    <Button
+            android:text="!!Magic go-to-main-menu-button!! (Developers only pls)"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/goToMainMenuButton" android:textSize="20sp" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintBottom_toBottomOf="parent"/>
     <Button
             android:text="goToMessagesButton"
             android:layout_width="wrap_content"
@@ -65,5 +65,7 @@
             android:layout_marginEnd="8dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
             android:layout_marginBottom="8dp" app:layout_constraintBottom_toTopOf="@+id/goToMainMenuButton"/>
+
+    -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

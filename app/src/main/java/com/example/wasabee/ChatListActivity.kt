@@ -28,4 +28,8 @@ class ChatListActivity : AppCompatActivity() {
             startActivity(Intent(this, NewChatPeopleActivity::class.java))
         }
     }
+
+    override fun onBackPressed() {
+        startActivity(Intent(this, MainMenuActivity::class.java))
+    }
 }

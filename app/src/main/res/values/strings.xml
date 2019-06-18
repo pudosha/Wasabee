@@ -24,5 +24,7 @@
     <string name="enter_message">Enter message</string>
     <string name="send_message">send</string>
     <string name="chat_info">Chat info</string>
+    <string name="ok">Ok</string>
+    <string name="back_to_chats">Go back to chats</string>
     <string name="preference_file_key">com.example.wasabee.preference_file</string>
 </resources>

@@ -19,6 +19,7 @@ class StartingUpActivity : AppCompatActivity() {
             startActivity(Intent(this, SignUpActivity::class.java))
         }
 
+        /*
         goToMainMenuButton.setOnClickListener {
             startActivity(Intent(this, MainMenuActivity::class.java))
         }
@@ -27,8 +28,10 @@ class StartingUpActivity : AppCompatActivity() {
         goToMessagesButton.setOnClickListener {
             startActivity(Intent(this, MessageListActivity::class.java))
         }
-
+        */
 
     }
+
+    override fun onBackPressed() {}
 
 }
