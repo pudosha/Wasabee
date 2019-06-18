@@ -1,6 +1,6 @@
 package com.example.wasabee
 
-import android.content.Context
+import android.content.*
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,7 +14,8 @@ import android.widget.Toast
 import android.os.IBinder
 import android.content.ComponentName
 import android.content.ServiceConnection
-import kotlinx.android.synthetic.main.activity_create_chat.*
+import android.util.Log
+import com.google.gson.JsonObject
 
 
 class MessageListActivity : AppCompatActivity() {
@@ -35,19 +36,23 @@ class MessageListActivity : AppCompatActivity() {
         recyclerview_message_list.adapter = mAdapter
 
         button_chatbox_send.setOnClickListener {
-            val time = date.get(Calendar.HOUR_OF_DAY).toString() + ":" + date.get(Calendar.MINUTE).toString()
-            val message = Message(edittext_chatbox.text.toString(), time, "Sir")
-            messages.add(message)
-            mAdapter.notifyItemInserted(messages.size - 1)
-            mAdapter.notifyDataSetChanged()
-
-            edittext_chatbox.text.clear()
-
+            val message = JsonObject()
+            // TODO("Actual chat id")
+            message.addProperty("chatId", "123")
+            message.addProperty("message", edittext_chatbox.text.toString())
             if (mBounded) {
-                mServer!!.sendMessage(message.toString())
+                mServer!!.sendMessage(message)
+                edittext_chatbox.text.clear()
             } else {
                 Toast.makeText(this@MessageListActivity, "Error sending message", Toast.LENGTH_LONG).show()
             }
+
+            /*
+            messages.add(message)
+            mAdapter.notifyItemInserted(messages.size - 1)
+            mAdapter.notifyDataSetChanged()
+            */
+
         }
 
         chatInfo.setOnClickListener {
@@ -58,17 +63,39 @@ class MessageListActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
+        val preferenceFile = applicationContext.getString(R.string.preference_file_key)
+        with(getSharedPreferences(preferenceFile, 0).edit()) {
+            putBoolean("isInMessageListActivity", true)
+            apply()
+        }
+
         val mIntent = Intent(this, SocketIOService::class.java)
         bindService(mIntent, mConnection, Context.BIND_AUTO_CREATE)
-    };
-
-
-    // Adds animals to the empty animals ArrayList
-    fun addMessages(newMessages: ArrayList<Message>) {
-        messages.addAll(newMessages)
-        mAdapter.notifyItemInserted(messages.size - 1)
-        mAdapter.notifyDataSetChanged()
     }
+
+    override fun onStop() {
+        super.onStop()
+
+        val preferenceFile = applicationContext.getString(R.string.preference_file_key)
+        with(getSharedPreferences(preferenceFile, 0).edit()) {
+            putBoolean("isInMessageListActivity", false)
+            apply()
+        }
+    }
+
+    fun br() = object : BroadcastReceiver() {
+
+        override fun onReceive(context: Context, intent: Intent) {
+            val update = intent.getStringExtra("updates")
+            Log.d("newUpdate", update)
+        }
+    }.also {receiver ->
+        val intFilt = IntentFilter("updates");
+        // регистрируем (включаем) BroadcastReceiver
+        registerReceiver(receiver, intFilt);
+
+    }
+
 
     var mConnection: ServiceConnection = object : ServiceConnection {
         override fun onServiceDisconnected(name: ComponentName) {
