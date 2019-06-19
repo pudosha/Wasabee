@@ -10,9 +10,11 @@ import android.os.IBinder
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import com.example.wasabee.data.model.Message
 import com.github.nkzawa.emitter.Emitter
 import com.github.nkzawa.socketio.client.IO
 import com.github.nkzawa.socketio.client.Socket
+import com.google.gson.Gson
 import com.google.gson.JsonObject
 import java.util.*
 
@@ -57,23 +59,24 @@ class SocketIOService : Service() {
             intent.putExtra("updates", args[0].toString())
             sendBroadcast(intent);
         } else {
-            Log.d("else", "abc")
-            val resultIntent = Intent(this, StartingUpActivity::class.java)
+            val message = Gson().fromJson(args[0].toString(), Message::class.java)
+            val resultIntent = Intent(this, MessageListActivity::class.java)
+            resultIntent.putExtra("chatID", message.chatID)
             val resultPendingIntent = PendingIntent.getActivity(
                 this, 0, resultIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT
             )
-            var builder = NotificationCompat.Builder(this)
+            var builder = NotificationCompat.Builder(this, "M_CH_ID")
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle("Name")
-                .setContentText("Message")
+                .setContentTitle(message.username)
+                .setContentText(message.message)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setContentIntent(resultPendingIntent)
                 .setAutoCancel(true)
             with(NotificationManagerCompat.from(this)) {
                 notify(1, builder.build())
             }
-
+            Log.d("else", "abc")
         }
         Log.d("updates", args.toString())
     }
