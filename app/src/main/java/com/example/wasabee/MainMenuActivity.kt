@@ -24,7 +24,14 @@ class MainMenuActivity : AppCompatActivity() {
 
         logOutButton.setOnClickListener {
             val preferenceFile = applicationContext.getString(R.string.preference_file_key)
-            getSharedPreferences(preferenceFile, 0).edit().remove("token").apply()
+            with(getSharedPreferences(preferenceFile, 0).edit()) {
+                remove("token")
+                remove("username")
+                apply()
+            }
+            stopService(Intent(this@MainMenuActivity, SocketIOService::class.java))
+            //stopService(Intent(this@MainMenuActivity, NetworkService::class.java))
+
             startActivity(Intent(this, StartingUpActivity::class.java))
         }
 

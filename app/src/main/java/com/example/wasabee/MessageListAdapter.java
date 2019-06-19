@@ -1,6 +1,7 @@
 package com.example.wasabee;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +34,9 @@ public class MessageListAdapter extends RecyclerView.Adapter {
     public int getItemViewType(int position) {
         Message message = mMessageList.get(position);
         String preferenceFile = mContext.getString(R.string.preference_file_key);
+        Log.d("uname1", mContext.getSharedPreferences(preferenceFile, 0).getString("username", null));
         String username = mContext.getSharedPreferences(preferenceFile, 0).getString("username", null);
+        Log.d("uname2", username);
         if (message.getUsername().equals(username)) {
             // If the current user is the sender of the message
             return VIEW_TYPE_MESSAGE_SENT;

@@ -27,6 +27,8 @@ class SocketIOService : Service() {
             val token = getSharedPreferences(preferenceFile, 0).getString("token", null)
             val options = IO.Options()
             options.query = "authToken=$token"
+            options.forceNew = true;
+            Log.d("abc", "a")
             this.io = IO.socket("http://52.15.191.177", options)
             this.io!!.on("newMessage", onNewMessage);
             this.io!!.connect()
@@ -85,4 +87,13 @@ class SocketIOService : Service() {
             Log.d("socketio", e.toString())
         }
     }
+
+    /* This lil boi right here is not guaranteed to be called)9 Guess it's time for kostyl
+    override fun onDestroy() {
+        Log.d("onDestroy", "destroyed")
+        io!!.off();
+        io!!.disconnect()
+        super.onDestroy()
+    }
+    */
 }
