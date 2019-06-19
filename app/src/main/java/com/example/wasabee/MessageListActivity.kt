@@ -18,7 +18,6 @@ import kotlin.collections.ArrayList
 
 class MessageListActivity : AppCompatActivity() {
 
-    // Initializing an empty ArrayList to be filled with animals
     val messages: ArrayList<Message> = ArrayList()
 
     private var mAdapter = MessageListAdapter(messages, this)
@@ -26,18 +25,21 @@ class MessageListActivity : AppCompatActivity() {
     private var mBounded = false
     private var mServer: SocketIOService? = null
     private lateinit var bReciever: BroadcastReceiver
+    private lateinit var chatID: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_message_list)
+
+        chatID = getIntent().getStringExtra("chatID")!!
+        //chatIDText.setText(chatID)
 
         recyclerview_message_list.layoutManager = LinearLayoutManager(this)
         recyclerview_message_list.adapter = mAdapter
 
         button_chatbox_send.setOnClickListener {
             val message = JsonObject()
-            // TODO("Actual chat id")
-            message.addProperty("chatID", "123")
+            message.addProperty("chatID", chatID)
             message.addProperty("message", edittext_chatbox.text.toString())
             if (mBounded) {
                 mServer!!.sendMessage(message)
