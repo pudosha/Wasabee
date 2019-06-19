@@ -8,6 +8,10 @@ data class Chat(
     @Expose
     var chatName: String,
 
+    @SerializedName("chatID")
+    @Expose
+    var chatID: String,
+
     @SerializedName("message")
     @Expose
     var lastMessage: String,

@@ -23,7 +23,6 @@ import kotlinx.android.synthetic.main.activity_chat_list.*
 
 class ChatListActivity : AppCompatActivity(), ChatListAdapter.OnChatListener {
 
-    // Initializing an empty ArrayList to be filled with animals
     val chats: ArrayList<Chat> = ArrayList()
 
     private var mAdapter = ChatListAdapter(chats, this)
@@ -35,9 +34,9 @@ class ChatListActivity : AppCompatActivity(), ChatListAdapter.OnChatListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat_list)
 
-        chats.add(Chat("GoOd BoIs", "So we goin' out for pizzas tonight?", "22:19", "Brendon Urie"))
-        chats.add(Chat("Wiener dogs fan club", "Give me that upgrade. Upgrade.\n Ipgrade. Gimme that upgraaaaaaaaaade", "18:10", "Jeremy"))
-        chats.add(Chat("Podgotovochka", "JJJJJJJ fezeka", "11:42", "Alexander Ognёv"))
+        chats.add(Chat("GoOd BoIs","1tothe2", "So we goin' out for pizzas tonight?", "22:19", "Brendon Urie"))
+        chats.add(Chat("Wiener dogs fan club", "2meh", "Give me that upgrade. Upgrade.\n Ipgrade. Gimme that upgraaaaaaaaaade", "18:10", "Jeremy"))
+        chats.add(Chat("Podgotovochka", "3MEgan", "JJJJJJJ fezeka", "11:42", "Alexander Ognёv"))
 
         recyclerview_chat_list.layoutManager = LinearLayoutManager(this)
         recyclerview_chat_list.adapter = mAdapter
@@ -48,8 +47,10 @@ class ChatListActivity : AppCompatActivity(), ChatListAdapter.OnChatListener {
     }
 
     override fun onChatClick(position: Int) {
-        //chats.get(position)
-        startActivity(Intent(this, MessageListActivity::class.java))
+        val goToMessagesIntent = Intent(this, MessageListActivity::class.java)
+        goToMessagesIntent.putExtra("chatID", chats.get(position).chatID)
+        startActivity(goToMessagesIntent)
+        //startActivity(Intent(this, MessageListActivity::class.java).putExtra("chatID", chats.get(position).chatID))
     }
 
     override fun onBackPressed() {
