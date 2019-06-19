@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.wasabee.data.model.Message;
 import org.jetbrains.annotations.NotNull;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class MessageListAdapter extends RecyclerView.Adapter {
@@ -17,6 +18,7 @@ public class MessageListAdapter extends RecyclerView.Adapter {
 
     private Context mContext;
     private ArrayList<Message> mMessageList;
+    private SimpleDateFormat dateFormatter = new SimpleDateFormat("HH:mm");
 
     public MessageListAdapter(ArrayList<Message> messageList, Context context) {
         mContext = context;
@@ -86,7 +88,7 @@ public class MessageListAdapter extends RecyclerView.Adapter {
 
         void bind(Message message) {
             messageText.setText(message.getMessage());
-            timeText.setText(message.getDate().toString());
+            timeText.setText(dateFormatter.format(message.getDate()));
         }
     }
 
@@ -103,7 +105,7 @@ public class MessageListAdapter extends RecyclerView.Adapter {
 
         void bind(Message message) {
             messageText.setText(message.getMessage());
-            timeText.setText(message.getDate().toString());
+            timeText.setText(dateFormatter.format(message.getDate()));
             nameText.setText(message.getUsername());
         }
     }

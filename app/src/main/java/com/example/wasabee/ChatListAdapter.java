@@ -7,17 +7,19 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.wasabee.data.model.Chat;
+import com.example.wasabee.data.model.ChatPreview;
 import org.jetbrains.annotations.NotNull;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class ChatListAdapter extends RecyclerView.Adapter {
     private Context mContext;
-    private ArrayList<Chat> mChatList;
+    private ArrayList<ChatPreview> mChatList;
     private OnChatListener mOnChatListener;
+    private SimpleDateFormat dateFormatter = new SimpleDateFormat("HH:mm");
 
-    public ChatListAdapter(ArrayList<Chat> chats, OnChatListener onChatListener) {
+    public ChatListAdapter(ArrayList<ChatPreview> chats, OnChatListener onChatListener) {
         this.mChatList = chats;
         this.mOnChatListener = onChatListener;
     }
@@ -45,7 +47,7 @@ public class ChatListAdapter extends RecyclerView.Adapter {
     // Passes the chat object to a ViewHolder so that the contents can be bound to UI.
     @Override
     public void onBindViewHolder(@NotNull RecyclerView.ViewHolder holder, int position) {
-        Chat chat = mChatList.get(position);
+        ChatPreview chat = mChatList.get(position);
         ((ChatHolder) holder).bind(chat);
     }
 
@@ -66,11 +68,11 @@ public class ChatListAdapter extends RecyclerView.Adapter {
             itemView.setOnClickListener(this);
         }
 
-        void bind(Chat chat) {
-            chatNameText.setText(chat.getChatName());
-            lastMessageText.setText(chat.getLastMessage().substring(0, Math.min(40, chat.getLastMessage().toString().length())));//доделать
-            timeText.setText(chat.getDate().toString());
-            senderNameText.setText(chat.getSenderID() + ":");
+        void bind(ChatPreview chat) {
+            chatNameText.setText(chat.getChat().getChatName());
+            lastMessageText.setText(chat.getMessage().substring(0, Math.min(40, chat.getMessage().toString().length())));//доделать
+            timeText.setText(dateFormatter.format(chat.getDate()));
+            senderNameText.setText(chat.getUsername() + ":");
         }
 
         @Override

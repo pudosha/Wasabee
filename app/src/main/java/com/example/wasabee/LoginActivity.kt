@@ -19,7 +19,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        API = NetworkService.getInstance().getJSONApi()
+        API = NetworkService.getInstance(this).getJSONApi()
         loginButton_login.setOnClickListener {
             val loginInfo = JsonObject()
             loginInfo.addProperty("username", edittext_username_login.text.toString())

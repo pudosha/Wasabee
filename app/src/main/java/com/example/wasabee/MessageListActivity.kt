@@ -121,3 +121,15 @@ class MessageListActivity : AppCompatActivity() {
     }
 
 }
+
+/*
+class MessageListServiceConnection(): ServiceConnection {
+    override fun onServiceDisconnected(p0: ComponentName?) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onServiceConnected(p0: ComponentName?, p1: IBinder?) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+}
+*/

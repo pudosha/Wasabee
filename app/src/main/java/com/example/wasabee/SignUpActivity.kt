@@ -18,17 +18,17 @@ class SignUpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
 
-        API = NetworkService.getInstance().getJSONApi()
+        API = NetworkService.getInstance(this).jsonApi
         signUpButton_sign_up.setOnClickListener {
             val signUpInfo = JsonObject()
-            var username = edittext_username_sign_up.text.toString()
-            var password = edittext_password_sign_up.text.toString()
-            var repeatedPassword = edittext_repeat_password_sign_up.text.toString()
+            val username = edittext_username_sign_up.text.toString()
+            val password = edittext_password_sign_up.text.toString()
+            val repeatedPassword = edittext_repeat_password_sign_up.text.toString()
 
             if (username.length == 0 || password.length == 0) {
                 Toast.makeText(
                     this@SignUpActivity,
-                    "You can't have empty strings as login or password",
+                    "You can't have empty login or password",
                     Toast.LENGTH_LONG
                 ).show()
                 // edittext_password_sign_up.text.clear()
