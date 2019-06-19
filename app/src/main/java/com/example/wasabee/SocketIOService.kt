@@ -1,14 +1,20 @@
 package com.example.wasabee
 
+import android.app.Notification
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.app.Service
 import android.content.Intent
 import android.os.Binder
 import android.os.IBinder
 import android.util.Log
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import com.github.nkzawa.emitter.Emitter
 import com.github.nkzawa.socketio.client.IO
 import com.github.nkzawa.socketio.client.Socket
 import com.google.gson.JsonObject
+import java.util.*
 
 
 class SocketIOService : Service() {
@@ -52,6 +58,22 @@ class SocketIOService : Service() {
             sendBroadcast(intent);
         } else {
             Log.d("else", "abc")
+            val resultIntent = Intent(this, StartingUpActivity::class.java)
+            val resultPendingIntent = PendingIntent.getActivity(
+                this, 0, resultIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT
+            )
+            var builder = NotificationCompat.Builder(this)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle("Name")
+                .setContentText("Message")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setContentIntent(resultPendingIntent)
+                .setAutoCancel(true)
+            with(NotificationManagerCompat.from(this)) {
+                notify(1, builder.build())
+            }
+
         }
         Log.d("updates", args.toString())
     }
