@@ -68,7 +68,19 @@ public class ChatListAdapter extends RecyclerView.Adapter {
 
         void bind(Chat chat) {
             chatNameText.setText(chat.getChatName());
-            lastMessageText.setText(chat.getLastMessage().substring(0, Math.min(40, chat.getLastMessage().toString().length())));//доделать
+            String lastMessage = chat.getLastMessage();
+            int indexOfEnter = lastMessage.indexOf('\n');
+            int maxMessageLength = 50;
+
+            if (lastMessage.length() < maxMessageLength && indexOfEnter < 0)
+                lastMessageText.setText(chat.getLastMessage());
+
+            if (indexOfEnter >= 0 && indexOfEnter < maxMessageLength)
+                lastMessageText.setText(chat.getLastMessage().substring(0, indexOfEnter) + "...");
+
+            if (lastMessage.length() >= maxMessageLength && (indexOfEnter < 0 || indexOfEnter > maxMessageLength))
+                lastMessageText.setText(chat.getLastMessage().substring(0, maxMessageLength) + "...");
+
             timeText.setText(chat.getDate().toString());
             senderNameText.setText(chat.getSenderID() + ":");
         }
@@ -79,7 +91,7 @@ public class ChatListAdapter extends RecyclerView.Adapter {
         }
     }
 
-    public interface OnChatListener{
+    public interface OnChatListener {
         void onChatClick(int position);
     }
 
