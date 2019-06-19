@@ -36,7 +36,7 @@ class ChatListActivity : AppCompatActivity(), ChatListAdapter.OnChatListener {
         setContentView(R.layout.activity_chat_list)
 
         chats.add(Chat("GoOd BoIs", "So we goin' out for pizzas tonight?", "11:42", "Brendon Urie"))
-        chats.add(Chat("Wiener dogs fan club", "Give me that upgrade", "18:10", "Jeremy"))
+        chats.add(Chat("Wiener dogs fan club", "Give me that upgrade. Upgrade. Ipgrade. Gimme that upgraaaaaaaaaade", "18:10", "Jeremy"))
         chats.add(Chat("Podgotovochka", "JJJJJJJ fezeka", "22:19", "Alexander Ognёv"))
 
         recyclerview_chat_list.layoutManager = LinearLayoutManager(this)
