@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#E4B54B</color>
-    <color name="colorPrimaryDark">#C29A4B</color>
+    <color name="colorPrimary">#AF9898</color>
+    <color name="colorPrimaryDark">#AF9898</color>
     <color name="colorAccent">#2F1C00</color>
     <color name="colorMessageReceived">#312200</color>
-    <color name="colorMessageSent">#E9AE0A</color>
+    <color name="colorMessageSent">#AF9898</color>
     <color name="colorTextBlack">#312200</color>
     <color name="colorTextWhite">#FFFFFF</color>
+    <color name="colorChatBackground">#FFE4B7</color>
+    <color name="colorBrownButton">#6a4d4d</color>
+    <color name="colorMessageHint">#AF9898</color>
 </resources>
