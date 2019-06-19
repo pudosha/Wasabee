@@ -15,12 +15,13 @@ import android.os.IBinder
 import android.content.ComponentName
 import android.content.ServiceConnection
 import android.util.Log
+//import com.example.wasabee.ChatListAdapter.OnChatListener
 import com.example.wasabee.data.model.Chat
 import com.google.gson.JsonObject
 import kotlinx.android.synthetic.main.activity_chat_list.*
 
 
-class ChatListActivity : AppCompatActivity() {
+class ChatListActivity : AppCompatActivity(), ChatListAdapter.OnChatListener {
 
     // Initializing an empty ArrayList to be filled with animals
     val chats: ArrayList<Chat> = ArrayList()
@@ -41,30 +42,17 @@ class ChatListActivity : AppCompatActivity() {
         recyclerview_chat_list.layoutManager = LinearLayoutManager(this)
         recyclerview_chat_list.adapter = mAdapter
 
-        /*
-        button_chatbox_send.setOnClickListener {
-            val message = JsonObject()
-            // TODO("Actual chat id")
-            message.addProperty("chatId", "123")
-            message.addProperty("message", edittext_chatbox.text.toString())
-            if (mBounded) {
-                mServer!!.sendMessage(message)
-                edittext_chatbox.text.clear()
-            } else {
-                Toast.makeText(this@MessageListActivity, "Error sending message", Toast.LENGTH_LONG).show()
-            }
-
-            /*
-            messages.add(message)
-            mAdapter.notifyItemInserted(messages.size - 1)
-            mAdapter.notifyDataSetChanged()
-            */
-
-        }
-        */
-
         newChatButton.setOnClickListener {
             startActivity(Intent(this, NewChatPeopleActivity::class.java))
         }
+    }
+
+    override fun onChatClick(position: Int) {
+        //chats.get(position)
+        startActivity(Intent(this, MessageListActivity::class.java))
+    }
+
+    override fun onBackPressed() {
+        startActivity(Intent(this, MainMenuActivity::class.java))
     }
 }
