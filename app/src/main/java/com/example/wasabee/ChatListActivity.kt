@@ -65,7 +65,7 @@ class ChatListActivity : AppCompatActivity(), ChatListAdapter.OnChatListener {
 
     override fun onChatClick(position: Int) {
         val goToMessagesIntent = Intent(this, MessageListActivity::class.java)
-        goToMessagesIntent.putExtra("chatID", chats.get(position).chatID)
+        goToMessagesIntent.putExtra("chatID", chats.get(position).chat.chatID)
         startActivity(goToMessagesIntent)
         //startActivity(Intent(this, MessageListActivity::class.java).putExtra("chatID", chats.get(position).chatID))
     }

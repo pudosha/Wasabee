@@ -25,7 +25,7 @@ class MessageListActivity : AppCompatActivity() {
     private var mBounded = false
     private var mServer: SocketIOService? = null
     private lateinit var bReciever: BroadcastReceiver
-    private lateinit var chatID: String
+    private var chatID: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,7 +67,7 @@ class MessageListActivity : AppCompatActivity() {
         bReciever = br();
         val preferenceFile = applicationContext.getString(R.string.preference_file_key)
         with(getSharedPreferences(preferenceFile, 0).edit()) {
-            putBoolean("isInMessageListActivity", true)
+            putString("messageListActivityChatID", chatID)
             apply()
         }
 
@@ -81,7 +81,7 @@ class MessageListActivity : AppCompatActivity() {
         unregisterReceiver(bReciever)
         val preferenceFile = applicationContext.getString(R.string.preference_file_key)
         with(getSharedPreferences(preferenceFile, 0).edit()) {
-            putBoolean("isInMessageListActivity", false)
+            putString("messageListActivityChatID", null)
             apply()
         }
     }
@@ -100,7 +100,6 @@ class MessageListActivity : AppCompatActivity() {
         }
     }.also {receiver ->
         val intFilt = IntentFilter("updates");
-        // регистрируем (включаем) BroadcastReceiver
         registerReceiver(receiver, intFilt);
     }
 
@@ -123,15 +122,3 @@ class MessageListActivity : AppCompatActivity() {
     }
 
 }
-
-/*
-class MessageListServiceConnection(): ServiceConnection {
-    override fun onServiceDisconnected(p0: ComponentName?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun onServiceConnected(p0: ComponentName?, p1: IBinder?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-}
-*/

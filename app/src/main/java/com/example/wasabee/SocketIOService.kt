@@ -1,7 +1,5 @@
 package com.example.wasabee
 
-import android.app.Notification
-import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.Service
 import android.content.Intent
@@ -16,7 +14,6 @@ import com.github.nkzawa.socketio.client.IO
 import com.github.nkzawa.socketio.client.Socket
 import com.google.gson.Gson
 import com.google.gson.JsonObject
-import java.util.*
 
 
 class SocketIOService : Service() {
@@ -54,21 +51,30 @@ class SocketIOService : Service() {
     private val onNewMessage = Emitter.Listener { args ->
         Log.d("newMessage", args.toString())
 
+        val message = Gson().fromJson(args[0].toString(), Message::class.java)
+
         val preferenceFile = applicationContext.getString(R.string.preference_file_key)
-        if (getSharedPreferences(preferenceFile, 0).getBoolean("isInMessageListActivity", false)) {
+        val currentChatID = getSharedPreferences(preferenceFile, 0).getString("messageListActivityChatID", null)
+        val messageChatID = message.chatID
+        if (currentChatID != null) {
+            Log.d("curr", currentChatID)
+        } else {
+            Log.d("curr", "null")
+        }
+        Log.d("msg", messageChatID)
+        if (currentChatID == messageChatID) {
             Log.d("if", "abc")
             val intent = Intent("updates")
             intent.putExtra("updates", args[0].toString())
             sendBroadcast(intent);
         } else {
-            val message = Gson().fromJson(args[0].toString(), Message::class.java)
             val resultIntent = Intent(this, MessageListActivity::class.java)
             resultIntent.putExtra("chatID", message.chatID)
             val resultPendingIntent = PendingIntent.getActivity(
                 this, 0, resultIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT
             )
-            var builder = NotificationCompat.Builder(this, "M_CH_ID")
+            val builder = NotificationCompat.Builder(this, "M_CH_ID")
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(message.username)
                 .setContentText(message.message)
