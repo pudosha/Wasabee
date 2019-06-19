@@ -14,19 +14,37 @@ class NewChatPeopleActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_chat_people)
 
+        val people = ArrayList<String>()
+        people.add("Jim")
+        people.add("Becky")
+        people.add("Connie")
+        people.add("Jim")
+        people.add("Becky")
+        people.add("Connie")
+        people.add("Jim")
+        people.add("Becky")
+        people.add("Connie")
+        people.add("Jim")
+        people.add("Becky")
+        people.add("Connie")
+        people.add("Jim")
+        people.add("Becky")
+        people.add("Connie")
+        people.add("Jim")
+        people.add("Becky")
+        people.add("Connie")
+
+        val peopleAdapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, people)
+
+        peopleList.adapter = peopleAdapter
+        peopleList.setOnItemClickListener {parent, view, position, id ->
+            people.removeAt(position)
+            peopleAdapter.notifyDataSetChanged()
+        }
+
         goToNext.setOnClickListener {
             startActivity(Intent(this, CreateChatActivity::class.java))
         }
-
-        val people = Array(10) {i -> "Person $i"}
-        val peopleAdapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_checked, people)
-        peopleList.adapter = peopleAdapter
-        peopleList.setOnItemClickListener {parent, view, position, id ->
-            (view as TextView).text = (view as TextView).text.toString() + ". checked"
-            //TODO: implement checkboxes to add and un-add people to new chat
-
-        }
-
     }
 
 
