@@ -28,12 +28,13 @@ class LoginActivity : AppCompatActivity() {
                 .enqueue(object : retrofit2.Callback<UserData> {
                     override fun onResponse(call: Call<UserData>, response: Response<UserData>) {
                         if (response.body() == null) {
-                            Toast.makeText(this@LoginActivity, "duck.", Toast.LENGTH_LONG).show()
+                            Toast.makeText(this@LoginActivity, "Wrong username or password", Toast.LENGTH_LONG).show()
                             return
                         }
                         val res = response.body()!!
 
-                        Toast.makeText(this@LoginActivity, "ok", Toast.LENGTH_LONG).show()
+
+                        Toast.makeText(this@LoginActivity, "Welcome back, ${res.username}!", Toast.LENGTH_LONG).show()
                         val preferenceFile = applicationContext.getString(R.string.preference_file_key)
                         with(getSharedPreferences(preferenceFile, 0).edit()) {
                             putString("token", res.token)

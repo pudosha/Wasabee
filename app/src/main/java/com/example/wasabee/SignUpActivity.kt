@@ -61,12 +61,12 @@ class SignUpActivity : AppCompatActivity() {
                 .enqueue(object : retrofit2.Callback<UserData> {
                     override fun onResponse(call: Call<UserData>, response: Response<UserData>) {
                         if (response.body() == null) {
-                            Toast.makeText(this@SignUpActivity, "duck.", Toast.LENGTH_LONG).show()
+                            Toast.makeText(this@SignUpActivity, "Username $username is already taken. Please choose another one", Toast.LENGTH_LONG).show()
                             return
                         }
 
                         val res = response.body()!!
-                        Toast.makeText(this@SignUpActivity, "ok", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@SignUpActivity, "We're glad to have you with us, $username!", Toast.LENGTH_LONG).show()
                         val preferenceFile = applicationContext.getString(R.string.preference_file_key)
                         with(getSharedPreferences(preferenceFile, 0).edit()) {
                             putString("token", res.token)

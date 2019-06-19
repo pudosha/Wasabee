@@ -35,7 +35,10 @@ class MainMenuActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        moveTaskToBack(false)
+        val exit = Intent(Intent.ACTION_MAIN)
+        exit.addCategory(Intent.CATEGORY_HOME)
+        exit.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(exit)
     }
 
 }
