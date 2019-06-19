@@ -10,6 +10,7 @@ import com.example.wasabee.data.model.Message;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class MessageListAdapter extends RecyclerView.Adapter {
     private static final int VIEW_TYPE_MESSAGE_SENT = 1;
@@ -85,8 +86,14 @@ public class MessageListAdapter extends RecyclerView.Adapter {
         }
 
         void bind(Message message) {
+            Calendar calendar = Calendar.getInstance();
+            int hour = calendar.get(Calendar.HOUR_OF_DAY);
+            int minute = calendar.get(Calendar.MINUTE);
             messageText.setText(message.getMessage());
-            timeText.setText(message.getDate().toString());
+            if (minute < 10)
+                timeText.setText(hour + ":0" + minute);
+            else
+                timeText.setText(hour + ":" + minute);
         }
     }
 
@@ -102,8 +109,14 @@ public class MessageListAdapter extends RecyclerView.Adapter {
         }
 
         void bind(Message message) {
+            Calendar calendar = Calendar.getInstance();
+            int hour = calendar.get(Calendar.HOUR_OF_DAY);
+            int minute = calendar.get(Calendar.MINUTE);
             messageText.setText(message.getMessage());
-            timeText.setText(message.getDate().toString());
+            if (minute < 10)
+                timeText.setText(hour + ":0" + minute);
+            else
+                timeText.setText(hour + ":" + minute);
             nameText.setText(message.getUsername());
         }
     }
