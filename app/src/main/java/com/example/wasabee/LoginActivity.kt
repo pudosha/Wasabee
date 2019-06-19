@@ -37,7 +37,7 @@ class LoginActivity : AppCompatActivity() {
                         val preferenceFile = applicationContext.getString(R.string.preference_file_key)
                         with(getSharedPreferences(preferenceFile, 0).edit()) {
                             putString("token", res.token)
-                            putString("userID", res.userID)
+                            putString("username", res.username)
                             apply()
                         }
                         startActivity(Intent(this@LoginActivity, MainMenuActivity::class.java))

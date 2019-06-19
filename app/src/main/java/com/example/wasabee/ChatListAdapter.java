@@ -55,7 +55,7 @@ public class ChatListAdapter extends RecyclerView.Adapter {
         void bind(Chat chat) {
             chatNameText.setText(chat.getChatName());
             lastMessageText.setText(chat.getLastMessage());
-            timeText.setText(chat.getDate());
+            timeText.setText(chat.getDate().toString());
             senderNameText.setText(chat.getSenderID());
         }
 

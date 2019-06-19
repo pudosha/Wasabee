@@ -9,8 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.wasabee.SocketIOService.LocalBinder
 import com.example.wasabee.data.model.Message
+import com.google.gson.Gson
 import com.google.gson.JsonObject
-import com.google.gson.JsonParser
 import kotlinx.android.synthetic.main.activity_message_list.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -87,10 +87,10 @@ class MessageListActivity : AppCompatActivity() {
     fun br() = object : BroadcastReceiver() {
 
         override fun onReceive(context: Context, intent: Intent) {
-            val update = JsonParser().parse(intent.getStringExtra("updates")!!).asJsonObject
-            Log.d("dbg", update.toString())
-            val message = Message(update["message"].asString, update["date"].asString, update["sender"].asString)
-            // json to pojo
+            //val update = JsonParser().parse(intent.getStringExtra("updates")!!).asJsonObject
+            //val message = Message(update["message"].asString, update["date"].asString, update["sender"].asString)
+            val message = Gson().fromJson(intent.getStringExtra("updates")!!, Message::class.java)
+            Log.d("dbg", message.toString())
             messages.add(message)
             mAdapter.notifyItemInserted(messages.size - 1)
             mAdapter.notifyDataSetChanged()

@@ -21,8 +21,8 @@ class SocketIOService : Service() {
             val token = getSharedPreferences(preferenceFile, 0).getString("token", null)
             val options = IO.Options()
             options.query = "authToken=$token"
-            this.io = IO.socket("http://192.168.1.141:8080", options)
-            this.io!!.on("message", onNewMessage);
+            this.io = IO.socket("http://192.168.0.135:8080", options)
+            this.io!!.on("newMessage", onNewMessage);
             this.io!!.connect()
 
         } catch (e: Exception) {

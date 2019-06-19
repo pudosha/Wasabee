@@ -8,8 +8,8 @@ data class UserData(
     @Expose
     var token: String? = null,
 
-    @SerializedName("userID")
+    @SerializedName("username")
     @Expose
-    var userID: String? = null
+    var username: String? = null
 
 )

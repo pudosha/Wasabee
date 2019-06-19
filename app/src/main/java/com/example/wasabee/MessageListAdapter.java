@@ -33,8 +33,8 @@ public class MessageListAdapter extends RecyclerView.Adapter {
     public int getItemViewType(int position) {
         Message message = mMessageList.get(position);
         String preferenceFile = mContext.getString(R.string.preference_file_key);
-        String userID = mContext.getSharedPreferences(preferenceFile, 0).getString("userID", null);
-        if (message.getSenderID().equals(userID)) {
+        String username = mContext.getSharedPreferences(preferenceFile, 0).getString("username", null);
+        if (message.getUsername().equals(username)) {
             // If the current user is the sender of the message
             return VIEW_TYPE_MESSAGE_SENT;
         } else {
@@ -86,7 +86,7 @@ public class MessageListAdapter extends RecyclerView.Adapter {
 
         void bind(Message message) {
             messageText.setText(message.getMessage());
-            timeText.setText(message.getDate());
+            timeText.setText(message.getDate().toString());
         }
     }
 
@@ -103,8 +103,8 @@ public class MessageListAdapter extends RecyclerView.Adapter {
 
         void bind(Message message) {
             messageText.setText(message.getMessage());
-            timeText.setText(message.getDate());
-            nameText.setText(message.getSenderID());
+            timeText.setText(message.getDate().toString());
+            nameText.setText(message.getUsername());
         }
     }
 }
