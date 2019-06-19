@@ -2,7 +2,6 @@ package com.example.wasabee.data.model
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import java.util.*
 
 data class Chat(
     @SerializedName("chatName")
@@ -15,7 +14,7 @@ data class Chat(
 
     @SerializedName("date")
     @Expose
-    var date: Date,
+    var date: String,
 
     @SerializedName("username")
     @Expose
