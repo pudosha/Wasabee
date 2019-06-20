@@ -82,7 +82,7 @@ class SocketIOService : Service() {
                 .setContentIntent(resultPendingIntent)
                 .setAutoCancel(true)
             with(NotificationManagerCompat.from(this)) {
-                notify(1, builder.build())
+                notify(message.messageID.toInt(), builder.build())
             }
             Log.d("else", "abc")
         }
