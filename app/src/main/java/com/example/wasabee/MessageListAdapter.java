@@ -1,6 +1,7 @@
 package com.example.wasabee;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +11,7 @@ import com.example.wasabee.data.model.Message;
 import org.jetbrains.annotations.NotNull;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import java.util.List;
 
 public class MessageListAdapter extends RecyclerView.Adapter {
     private static final int VIEW_TYPE_MESSAGE_SENT = 1;
@@ -18,10 +19,10 @@ public class MessageListAdapter extends RecyclerView.Adapter {
     private static final int VIEW_TYPE_MESSAGE_SYSTEM = 3;
 
     private Context mContext;
-    private ArrayList<Message> mMessageList;
+    private List<Message> mMessageList;
     private SimpleDateFormat dateFormatter = new SimpleDateFormat("HH:mm");
 
-    public MessageListAdapter(ArrayList<Message> messageList, Context context) {
+    public MessageListAdapter(List<Message> messageList, Context context) {
         mContext = context;
         mMessageList = messageList;
     }
@@ -63,7 +64,7 @@ public class MessageListAdapter extends RecyclerView.Adapter {
         }
         view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_message_system, parent, false);
-        return new ReceivedMessageHolder(view);
+        return new SystemMessageHolder(view);
 
     }
 
@@ -80,7 +81,9 @@ public class MessageListAdapter extends RecyclerView.Adapter {
                 ((ReceivedMessageHolder) holder).bind(message);
                 break;
             case VIEW_TYPE_MESSAGE_SYSTEM:
+                Log.d("checkingMessage", message.toString());
                 ((SystemMessageHolder) holder).bind(message);
+                break;
         }
     }
 
@@ -97,15 +100,6 @@ public class MessageListAdapter extends RecyclerView.Adapter {
         void bind(Message message) {
             messageText.setText(message.getMessage());
             timeText.setText(dateFormatter.format(message.getDate()));
-            /*
-            Calendar calendar = Calendar.getInstance();
-            int hour = calendar.get(Calendar.HOUR_OF_DAY);
-            int minute = calendar.get(Calendar.MINUTE);
-            if (minute < 10)
-                timeText.setText(hour + ":0" + minute);
-            else
-                timeText.setText(hour + ":" + minute);
-            */
         }
     }
 

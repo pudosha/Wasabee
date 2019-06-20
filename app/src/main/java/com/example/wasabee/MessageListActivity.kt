@@ -7,18 +7,20 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.wasabee.SocketIOService.LocalBinder
 import com.example.wasabee.data.model.Message
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import kotlinx.android.synthetic.main.activity_message_list.*
+import retrofit2.Call
+import retrofit2.Response
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 class MessageListActivity : AppCompatActivity() {
 
-    val messages: ArrayList<Message> = ArrayList()
+    val messages: LinkedList<Message> = LinkedList()
 
     private var mAdapter = MessageListAdapter(messages, this)
     private var date = Calendar.getInstance()
@@ -26,16 +28,30 @@ class MessageListActivity : AppCompatActivity() {
     private var mServer: SocketIOService? = null
     private lateinit var bReciever: BroadcastReceiver
     private var chatID: String? = null
+    private lateinit var API: JSONPlaceHolderAPI
+    private var isStartReached = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_message_list)
 
+        API = NetworkService.getInstance(this).jsonApi
         chatID = getIntent().getStringExtra("chatID")!!
-        //chatIDText.setText(chatID)
 
-        recyclerview_message_list.layoutManager = LinearLayoutManager(this)
+        val layoutManager = LinearLayoutManager(this)
+        recyclerview_message_list.layoutManager = layoutManager
         recyclerview_message_list.adapter = mAdapter
+        addMessages()
+
+        recyclerview_message_list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                if (recyclerView.computeVerticalScrollOffset() < 100) {
+                    //if (!recyclerView.canScrollVertically(-1) && !isStartReached) {
+                    addMessages()
+                }
+            }
+        })
+
 
         button_chatbox_send.setOnClickListener {
             val message = JsonObject()
@@ -72,6 +88,7 @@ class MessageListActivity : AppCompatActivity() {
     override fun onStop() {
         super.onStop()
 
+        isStartReached = false
         unregisterReceiver(bReciever)
         val preferenceFile = applicationContext.getString(R.string.preference_file_key)
         with(getSharedPreferences(preferenceFile, 0).edit()) {
@@ -79,6 +96,55 @@ class MessageListActivity : AppCompatActivity() {
             apply()
         }
     }
+
+    var canGetMessages = true // костыль
+    private fun addMessages() {
+        if (!canGetMessages)
+            return
+        canGetMessages = false
+        val firstMessageID: String?
+        if (messages.size > 0) {
+            firstMessageID = messages.first.messageID
+            Log.d("messageID", firstMessageID)
+        } else {
+            firstMessageID = null
+            Log.d("messageID", "null")
+        }
+
+        API.getMessages(chatID, firstMessageID, 2)
+            .enqueue(object : retrofit2.Callback<ArrayList<Message>> {
+                override fun onResponse(
+                    call: Call<ArrayList<Message>>,
+                    response: Response<ArrayList<Message>>
+                ) {
+                    Log.d("okok", "solution is correct")
+                    val newMessages = response.body()!!
+                    newMessages.reverse()
+                    if (newMessages.size == 0)
+                        isStartReached = true
+
+                    newMessages.forEach { message ->
+                        messages.addFirst(message)
+                    }
+
+                    mAdapter.notifyItemInserted(messages.size - 1)
+                    mAdapter.notifyDataSetChanged()
+                    canGetMessages = true
+                }
+
+                override fun onFailure(call: Call<ArrayList<Message>>, t: Throwable) {
+                    Log.d("i'm not ok", "and not sorry 4 that")
+                    Toast.makeText(
+                        this@MessageListActivity,
+                        "Error occurred while getting server request. Please check your connection and try again",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+
+            })
+
+    }
+
 
     fun br() = object : BroadcastReceiver() {
 
@@ -92,7 +158,7 @@ class MessageListActivity : AppCompatActivity() {
             mAdapter.notifyDataSetChanged()
 
         }
-    }.also {receiver ->
+    }.also { receiver ->
         val intFilt = IntentFilter("updates");
         registerReceiver(receiver, intFilt);
     }
