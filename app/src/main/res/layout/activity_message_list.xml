@@ -45,13 +45,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
             tools:layout_editor_absoluteX="16dp" app:layout_constraintBottom_toTopOf="@+id/layout_chatbox"
-            android:layout_marginBottom="48dp" android:layout_marginTop="25dp">
+            android:layout_marginBottom="54dp" android:layout_marginTop="25dp">
 
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerview_message_list"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-        >
+                android:layout_height="match_parent">
         </androidx.recyclerview.widget.RecyclerView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

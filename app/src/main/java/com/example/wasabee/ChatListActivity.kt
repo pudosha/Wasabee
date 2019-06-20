@@ -86,6 +86,7 @@ class ChatListActivity : AppCompatActivity(), ChatListAdapter.OnChatListener {
 
         val chatList: RecyclerView = findViewById(R.id.recyclerview_chat_list) as RecyclerView
         registerForContextMenu(chatList)
+    }
 
 
         override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenu.ContextMenuInfo?) {

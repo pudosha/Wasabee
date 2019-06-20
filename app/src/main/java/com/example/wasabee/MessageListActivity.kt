@@ -1,6 +1,7 @@
 package com.example.wasabee
 
 import android.content.*
+import android.icu.lang.UCharacter
 import android.os.Bundle
 import android.os.IBinder
 import android.util.Log
@@ -38,14 +39,16 @@ class MessageListActivity : AppCompatActivity() {
         API = NetworkService.getInstance(this).jsonApi
         chatID = getIntent().getStringExtra("chatID")!!
 
-        val layoutManager = LinearLayoutManager(this)
+        val layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, true)
+        //fun setStackFromEnd(stackFromEnd: Boolean): Unit
+        //val layoutManager = LinearLayoutManager(this)
         recyclerview_message_list.layoutManager = layoutManager
         recyclerview_message_list.adapter = mAdapter
         addMessages()
 
         recyclerview_message_list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                if (recyclerView.computeVerticalScrollOffset() < 100) {
+                if (recyclerView.computeVerticalScrollOffset() < 1000) {
                     //if (!recyclerView.canScrollVertically(-1) && !isStartReached) {
                     addMessages()
                 }
@@ -54,14 +57,16 @@ class MessageListActivity : AppCompatActivity() {
 
 
         button_chatbox_send.setOnClickListener {
-            val message = JsonObject()
-            message.addProperty("chatID", chatID)
-            message.addProperty("message", edittext_chatbox.text.toString())
-            if (mBounded) {
-                mServer!!.sendMessage(message)
-                edittext_chatbox.text.clear()
-            } else {
-                Toast.makeText(this@MessageListActivity, "Error sending message", Toast.LENGTH_LONG).show()
+            if (edittext_chatbox.text.toString().length > 0) {
+                val message = JsonObject()
+                message.addProperty("chatID", chatID)
+                message.addProperty("message", edittext_chatbox.text.toString())
+                if (mBounded) {
+                    mServer!!.sendMessage(message)
+                    edittext_chatbox.text.clear()
+                } else {
+                    Toast.makeText(this@MessageListActivity, "Error sending message", Toast.LENGTH_LONG).show()
+                }
             }
 
         }
@@ -111,7 +116,7 @@ class MessageListActivity : AppCompatActivity() {
             Log.d("messageID", "null")
         }
 
-        API.getMessages(chatID, firstMessageID, 2)
+        API.getMessages(chatID, firstMessageID, 50)
             .enqueue(object : retrofit2.Callback<ArrayList<Message>> {
                 override fun onResponse(
                     call: Call<ArrayList<Message>>,
