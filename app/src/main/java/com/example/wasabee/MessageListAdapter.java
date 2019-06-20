@@ -1,6 +1,7 @@
 package com.example.wasabee;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,7 +64,7 @@ public class MessageListAdapter extends RecyclerView.Adapter {
         }
         view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_message_system, parent, false);
-        return new ReceivedMessageHolder(view);
+        return new SystemMessageHolder(view);
 
     }
 
@@ -80,7 +81,9 @@ public class MessageListAdapter extends RecyclerView.Adapter {
                 ((ReceivedMessageHolder) holder).bind(message);
                 break;
             case VIEW_TYPE_MESSAGE_SYSTEM:
+                Log.d("checkingMessage", message.toString());
                 ((SystemMessageHolder) holder).bind(message);
+                break;
         }
     }
 
