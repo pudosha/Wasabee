@@ -37,7 +37,7 @@ class MainMenuActivity : AppCompatActivity() {
 
         goToMessagesButton2.setOnClickListener {
             val goToMessagesIntent = Intent(this, MessageListActivity::class.java)
-            goToMessagesIntent.putExtra("chatID", "just some chatID")
+            goToMessagesIntent.putExtra("chatID", "123")
             startActivity(goToMessagesIntent)
         }
 
