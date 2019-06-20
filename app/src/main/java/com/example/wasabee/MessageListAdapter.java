@@ -89,6 +89,15 @@ public class MessageListAdapter extends RecyclerView.Adapter {
         void bind(Message message) {
             messageText.setText(message.getMessage());
             timeText.setText(dateFormatter.format(message.getDate()));
+            /*
+            Calendar calendar = Calendar.getInstance();
+            int hour = calendar.get(Calendar.HOUR_OF_DAY);
+            int minute = calendar.get(Calendar.MINUTE);
+            if (minute < 10)
+                timeText.setText(hour + ":0" + minute);
+            else
+                timeText.setText(hour + ":" + minute);
+            */
         }
     }
 
@@ -104,6 +113,16 @@ public class MessageListAdapter extends RecyclerView.Adapter {
         }
 
         void bind(Message message) {
+/*
+            Calendar calendar = Calendar.getInstance();
+            int hour = calendar.get(Calendar.HOUR_OF_DAY);
+            int minute = calendar.get(Calendar.MINUTE);
+
+            if (minute < 10)
+                timeText.setText(hour + ":0" + minute);
+            else
+                timeText.setText(hour + ":" + minute);
+*/
             messageText.setText(message.getMessage());
             timeText.setText(dateFormatter.format(message.getDate()));
             nameText.setText(message.getUsername());
