@@ -79,7 +79,8 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:maxLines="6" android:textColorHint="@color/colorMessageHint"/>
+                android:maxLines="6" android:textColorHint="@color/colorMessageHint"
+                android:textColor="@color/colorTextWhite"/>
 
         <Button
                 android:id="@+id/button_chatbox_send"

@@ -64,12 +64,6 @@ class MessageListActivity : AppCompatActivity() {
                 Toast.makeText(this@MessageListActivity, "Error sending message", Toast.LENGTH_LONG).show()
             }
 
-            /*
-            messages.add(message)
-            mAdapter.notifyItemInserted(messages.size - 1)
-            mAdapter.notifyDataSetChanged()
-            */
-
         }
 
         chatInfo.setOnClickListener {

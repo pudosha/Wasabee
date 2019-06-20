@@ -9,6 +9,14 @@ class StartingUpActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val preferenceFile = applicationContext.getString(R.string.preference_file_key)
+        val token = getSharedPreferences(preferenceFile, 0).getString("token", null)
+        if(token !== null) {
+            startActivity(Intent(this, MainMenuActivity::class.java))
+            finish()
+        }
+
         setContentView(R.layout.activity_starting_up)
 
         loginButton_login.setOnClickListener {
@@ -23,7 +31,6 @@ class StartingUpActivity : AppCompatActivity() {
         goToMainMenuButton.setOnClickListener {
             startActivity(Intent(this, MainMenuActivity::class.java))
         }
-
 
         goToMessagesButton.setOnClickListener {
             startActivity(Intent(this, MessageListActivity::class.java))

@@ -1,5 +1,6 @@
 package com.example.wasabee;
 
+import com.example.wasabee.data.model.Chat;
 import com.example.wasabee.data.model.ChatPreview;
 import com.example.wasabee.data.model.Message;
 import com.example.wasabee.data.model.UserData;
@@ -28,5 +29,9 @@ public interface JSONPlaceHolderAPI {
             @Query("lastMessageID") String lastMessageID,
             @Query("messageCount") Integer messageCount
     );
+
+    @POST("/createChat")
+    Call<Chat> createChat(@Body JsonObject newChatInfo);
+
 
 }

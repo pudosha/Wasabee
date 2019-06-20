@@ -2,10 +2,16 @@ package com.example.wasabee
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.ContextMenu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.wasabee.data.model.ChatPreview
+import kotlinx.android.synthetic.main.activity_chat_info.*
 import kotlinx.android.synthetic.main.activity_chat_list.*
 import retrofit2.Call
 import retrofit2.Response
@@ -51,23 +57,38 @@ class ChatListActivity : AppCompatActivity(), ChatListAdapter.OnChatListener {
                 }
 
             })
+
+         val chatList: RecyclerView = findViewById(R.id.recyclerview_chat_list) as RecyclerView
+        registerForContextMenu(chatList)
+
         /*
         chats.add(Chat("GoOd BoIs", "So we goin' out for pizzas tonight?", "11:42", "Brendon Urie"))
         chats.add(Chat("Wiener dogs fan club", "Give me that upgrade. Upgrade. Ipgrade. Gimme that upgraaaaaaaaaade", "18:10", "Jeremy"))
         chats.add(Chat("Podgotovochka", "JJJJJJJ fezeka", "22:19", "Alexander Ognёv"))
         */
 
-
         newChatButton.setOnClickListener {
             startActivity(Intent(this, NewChatPeopleActivity::class.java))
         }
+    }
+
+
+    override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenu.ContextMenuInfo?) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        menu.setHeaderTitle("Context Menu");
+        menu.add(0, v.getId(), 0, "Upload");
+        menu.add(0, v.getId(), 0, "Search");
+    }
+
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+        Toast.makeText(this, "Selected Item: " +item.getTitle(), Toast.LENGTH_SHORT).show()
+        return true
     }
 
     override fun onChatClick(position: Int) {
         val goToMessagesIntent = Intent(this, MessageListActivity::class.java)
         goToMessagesIntent.putExtra("chatID", chats.get(position).chat.chatID)
         startActivity(goToMessagesIntent)
-        //startActivity(Intent(this, MessageListActivity::class.java).putExtra("chatID", chats.get(position).chatID))
     }
 
     override fun onBackPressed() {

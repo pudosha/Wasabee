@@ -10,6 +10,19 @@ import kotlinx.android.synthetic.main.activity_starting_up.*
 
 class MainMenuActivity : AppCompatActivity() {
 
+    /*@Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if(isFirstTime()) {
+            startActivity(new Intent(this, SetupActivity.class));
+            finish();
+        } else {
+            setContentView(R.layout.activity_main);
+            ... // anything else that you need to do to initialize MainActivity
+        }
+    }*/
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -37,7 +50,7 @@ class MainMenuActivity : AppCompatActivity() {
 
         goToMessagesButton2.setOnClickListener {
             val goToMessagesIntent = Intent(this, MessageListActivity::class.java)
-            goToMessagesIntent.putExtra("chatID", "just some chatID")
+            goToMessagesIntent.putExtra("chatID", "123")
             startActivity(goToMessagesIntent)
         }
 

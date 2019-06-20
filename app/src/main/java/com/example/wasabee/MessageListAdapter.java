@@ -15,6 +15,7 @@ import java.util.List;
 public class MessageListAdapter extends RecyclerView.Adapter {
     private static final int VIEW_TYPE_MESSAGE_SENT = 1;
     private static final int VIEW_TYPE_MESSAGE_RECEIVED = 2;
+    private static final int VIEW_TYPE_MESSAGE_SYSTEM = 3;
 
     private Context mContext;
     private List<Message> mMessageList;
@@ -36,12 +37,11 @@ public class MessageListAdapter extends RecyclerView.Adapter {
         Message message = mMessageList.get(position);
         String preferenceFile = mContext.getString(R.string.preference_file_key);
         String username = mContext.getSharedPreferences(preferenceFile, 0).getString("username", null);
-        if (message.getUsername().equals(username)) {
-            // If the current user is the sender of the message
-            return VIEW_TYPE_MESSAGE_SENT;
-        } else {
-            // If some other user sent the message
-            return VIEW_TYPE_MESSAGE_RECEIVED;
+        String systemUsername = "bunbun";
+        if (message.getUsername().equals(username)) return VIEW_TYPE_MESSAGE_SENT;
+        else {
+            if (message.getUsername().equals(systemUsername)) return VIEW_TYPE_MESSAGE_SYSTEM;
+            else return VIEW_TYPE_MESSAGE_RECEIVED;
         }
     }
 
@@ -55,11 +55,16 @@ public class MessageListAdapter extends RecyclerView.Adapter {
             view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.item_message_sent, parent, false);
             return new SentMessageHolder(view);
-        } else {
+        }
+        if (viewType == VIEW_TYPE_MESSAGE_RECEIVED) {
             view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.item_message_received, parent, false);
             return new ReceivedMessageHolder(view);
         }
+        view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_message_system, parent, false);
+        return new ReceivedMessageHolder(view);
+
     }
 
     // Passes the message object to a ViewHolder so that the contents can be bound to UI.
@@ -73,6 +78,9 @@ public class MessageListAdapter extends RecyclerView.Adapter {
                 break;
             case VIEW_TYPE_MESSAGE_RECEIVED:
                 ((ReceivedMessageHolder) holder).bind(message);
+                break;
+            case VIEW_TYPE_MESSAGE_SYSTEM:
+                ((SystemMessageHolder) holder).bind(message);
         }
     }
 
@@ -117,6 +125,19 @@ public class MessageListAdapter extends RecyclerView.Adapter {
             messageText.setText(message.getMessage());
             timeText.setText(dateFormatter.format(message.getDate()));
             nameText.setText(message.getUsername());
+        }
+    }
+
+    private class SystemMessageHolder extends RecyclerView.ViewHolder {
+        TextView messageText;
+
+        SystemMessageHolder(View itemView) {
+            super(itemView);
+            messageText = (TextView) itemView.findViewById(R.id.text_message_body);
+        }
+
+        void bind(Message message) {
+            messageText.setText(message.getMessage());
         }
     }
 }
