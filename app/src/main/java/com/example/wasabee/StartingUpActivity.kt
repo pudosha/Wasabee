@@ -32,6 +32,11 @@ class StartingUpActivity : AppCompatActivity() {
 
     }
 
-    override fun onBackPressed() {}
+    override fun onBackPressed() {
+        val exit = Intent(Intent.ACTION_MAIN)
+        exit.addCategory(Intent.CATEGORY_HOME)
+        exit.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(exit)
+    }
 
 }

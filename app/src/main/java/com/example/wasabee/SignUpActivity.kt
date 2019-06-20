@@ -18,17 +18,17 @@ class SignUpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
 
-        API = NetworkService.getInstance().getJSONApi()
+        API = NetworkService.getInstance(this).jsonApi
         signUpButton_sign_up.setOnClickListener {
             val signUpInfo = JsonObject()
-            var username = edittext_username_sign_up.text.toString()
-            var password = edittext_password_sign_up.text.toString()
-            var repeatedPassword = edittext_repeat_password_sign_up.text.toString()
+            val username = edittext_username_sign_up.text.toString()
+            val password = edittext_password_sign_up.text.toString()
+            val repeatedPassword = edittext_repeat_password_sign_up.text.toString()
 
             if (username.length == 0 || password.length == 0) {
                 Toast.makeText(
                     this@SignUpActivity,
-                    "You can't have empty strings as login or password",
+                    "You can't have empty login or password",
                     Toast.LENGTH_LONG
                 ).show()
                 // edittext_password_sign_up.text.clear()
@@ -61,12 +61,12 @@ class SignUpActivity : AppCompatActivity() {
                 .enqueue(object : retrofit2.Callback<UserData> {
                     override fun onResponse(call: Call<UserData>, response: Response<UserData>) {
                         if (response.body() == null) {
-                            Toast.makeText(this@SignUpActivity, "duck.", Toast.LENGTH_LONG).show()
+                            Toast.makeText(this@SignUpActivity, "Username $username is already taken. Please choose another one", Toast.LENGTH_LONG).show()
                             return
                         }
 
                         val res = response.body()!!
-                        Toast.makeText(this@SignUpActivity, "ok", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@SignUpActivity, "We're glad to have you with us, $username!", Toast.LENGTH_LONG).show()
                         val preferenceFile = applicationContext.getString(R.string.preference_file_key)
                         with(getSharedPreferences(preferenceFile, 0).edit()) {
                             putString("token", res.token)

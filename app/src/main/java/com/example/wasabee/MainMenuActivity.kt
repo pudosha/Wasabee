@@ -24,18 +24,30 @@ class MainMenuActivity : AppCompatActivity() {
 
         logOutButton.setOnClickListener {
             val preferenceFile = applicationContext.getString(R.string.preference_file_key)
-            getSharedPreferences(preferenceFile, 0).edit().remove("token").apply()
+            with(getSharedPreferences(preferenceFile, 0).edit()) {
+                remove("token")
+                remove("username")
+                apply()
+            }
+            stopService(Intent(this@MainMenuActivity, SocketIOService::class.java))
+            //stopService(Intent(this@MainMenuActivity, NetworkService::class.java))
+
             startActivity(Intent(this, StartingUpActivity::class.java))
         }
 
         goToMessagesButton2.setOnClickListener {
-            startActivity(Intent(this, MessageListActivity::class.java))
+            val goToMessagesIntent = Intent(this, MessageListActivity::class.java)
+            goToMessagesIntent.putExtra("chatID", "just some chatID")
+            startActivity(goToMessagesIntent)
         }
 
     }
 
     override fun onBackPressed() {
-        moveTaskToBack(false)
+        val exit = Intent(Intent.ACTION_MAIN)
+        exit.addCategory(Intent.CATEGORY_HOME)
+        exit.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(exit)
     }
 
 }
