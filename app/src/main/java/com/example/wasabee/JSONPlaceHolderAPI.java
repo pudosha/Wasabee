@@ -6,6 +6,7 @@ import com.example.wasabee.data.model.UserData;
 import com.google.gson.JsonObject;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public interface JSONPlaceHolderAPI {
     @POST("/signUp")
     Call<UserData> signUp(@Body JsonObject signUpInfo);
 
-    @POST("/getChatList")
+    @GET("/getChatList")
     Call<ArrayList<ChatPreview>> getChatList();
 
     @POST("/createChat")

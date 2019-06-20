@@ -6,6 +6,7 @@ import android.view.ContextMenu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -58,8 +59,6 @@ class ChatListActivity : AppCompatActivity(), ChatListAdapter.OnChatListener {
 
             })
 
-         val chatList: RecyclerView = findViewById(R.id.recyclerview_chat_list) as RecyclerView
-        registerForContextMenu(chatList)
 
         /*
         chats.add(Chat("GoOd BoIs", "So we goin' out for pizzas tonight?", "11:42", "Brendon Urie"))
@@ -70,28 +69,44 @@ class ChatListActivity : AppCompatActivity(), ChatListAdapter.OnChatListener {
         newChatButton.setOnClickListener {
             startActivity(Intent(this, NewChatPeopleActivity::class.java))
         }
-    }
+        /*class ViewHolder : RecyclerView.ViewHolder, View.OnCreateContextMenuListener {
+
+            public ViewHolder(View v)
+            {
+                super(v);
+                val chatList: RecyclerView = findViewById(R.id.recyclerview_chat_list) as RecyclerView
+                registerForContextMenu(chatList)
+                v.setOnCreateContextMenuListener(this);
+            }
+            //val chatList: RecyclerView = findViewById(R.id.recyclerview_chat_list) as RecyclerView
+            registerForContextMenu(chatList)
+            val editButt: Button = findViewById(R.id.editButton) as Button
+            registerForContextMenu(editButt)
+        }*/
+
+        val chatList: RecyclerView = findViewById(R.id.recyclerview_chat_list) as RecyclerView
+        registerForContextMenu(chatList)
 
 
-    override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenu.ContextMenuInfo?) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        menu.setHeaderTitle("Context Menu");
-        menu.add(0, v.getId(), 0, "Upload");
-        menu.add(0, v.getId(), 0, "Search");
-    }
+        override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenu.ContextMenuInfo?) {
+            super.onCreateContextMenu(menu, v, menuInfo);
+            menu.setHeaderTitle("Context Menu");
+            menu.add(0, v.getId(), 0, "Upload");
+            menu.add(0, v.getId(), 0, "Search");
+        }
 
-    override fun onContextItemSelected(item: MenuItem): Boolean {
-        Toast.makeText(this, "Selected Item: " +item.getTitle(), Toast.LENGTH_SHORT).show()
-        return true
-    }
+        override fun onContextItemSelected(item: MenuItem): Boolean {
+            Toast.makeText(this, "Selected Item: " + item.getTitle(), Toast.LENGTH_SHORT).show()
+            return true
+        }
 
-    override fun onChatClick(position: Int) {
-        val goToMessagesIntent = Intent(this, MessageListActivity::class.java)
-        goToMessagesIntent.putExtra("chatID", chats.get(position).chat.chatID)
-        startActivity(goToMessagesIntent)
-    }
+        override fun onChatClick(position: Int) {
+            val goToMessagesIntent = Intent(this, MessageListActivity::class.java)
+            goToMessagesIntent.putExtra("chatID", chats.get(position).chat.chatID)
+            startActivity(goToMessagesIntent)
+        }
 
-    override fun onBackPressed() {
-        startActivity(Intent(this, MainMenuActivity::class.java))
+        override fun onBackPressed() {
+            startActivity(Intent(this, MainMenuActivity::class.java))
+        }
     }
-}
