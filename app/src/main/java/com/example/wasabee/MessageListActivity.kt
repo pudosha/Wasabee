@@ -1,7 +1,6 @@
 package com.example.wasabee
 
 import android.content.*
-import android.icu.lang.UCharacter
 import android.os.Bundle
 import android.os.IBinder
 import android.util.Log
@@ -109,7 +108,7 @@ class MessageListActivity : AppCompatActivity() {
         canGetMessages = false
         val firstMessageID: String?
         if (messages.size > 0) {
-            firstMessageID = messages.first.messageID
+            firstMessageID = messages.last.messageID
             Log.d("messageID", firstMessageID)
         } else {
             firstMessageID = null
@@ -129,7 +128,7 @@ class MessageListActivity : AppCompatActivity() {
                         isStartReached = true
 
                     newMessages.forEach { message ->
-                        messages.addFirst(message)
+                        messages.add(message)
                     }
 
                     mAdapter.notifyItemInserted(messages.size - 1)
@@ -158,7 +157,7 @@ class MessageListActivity : AppCompatActivity() {
             //val message = Message(update["message"].asString, update["date"].asString, update["sender"].asString)
             val message = Gson().fromJson(intent.getStringExtra("updates")!!, Message::class.java)
             Log.d("dbg", message.toString())
-            messages.add(message)
+            messages.addFirst(message)
             mAdapter.notifyItemInserted(messages.size - 1)
             mAdapter.notifyDataSetChanged()
 
