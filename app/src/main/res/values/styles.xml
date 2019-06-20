@@ -39,7 +39,7 @@
     </style>
 
     <style name="ButtonStyleDark" parent="@style/ButtonStyleLight">
-        <item name="android:background">@drawable/brown_button_super_dark</item>
+        <item name="android:background">@drawable/brown_button_dark</item>
         <item name="android:textColor">@color/colorTextWhite</item>
         <!--change colours pls-->
     </style>
