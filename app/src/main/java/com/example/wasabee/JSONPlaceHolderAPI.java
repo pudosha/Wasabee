@@ -1,5 +1,6 @@
 package com.example.wasabee;
 
+import com.example.wasabee.data.model.Chat;
 import com.example.wasabee.data.model.ChatPreview;
 import com.example.wasabee.data.model.UserData;
 import com.google.gson.JsonObject;
@@ -18,5 +19,9 @@ public interface JSONPlaceHolderAPI {
 
     @POST("/getChatList")
     Call<ArrayList<ChatPreview>> getChatList();
+
+    @POST("/createChat")
+    Call<Chat> createChat(@Body JsonObject newChatInfo);
+
 
 }
