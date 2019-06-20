@@ -10,17 +10,17 @@ import com.example.wasabee.data.model.Message;
 import org.jetbrains.annotations.NotNull;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import java.util.List;
 
 public class MessageListAdapter extends RecyclerView.Adapter {
     private static final int VIEW_TYPE_MESSAGE_SENT = 1;
     private static final int VIEW_TYPE_MESSAGE_RECEIVED = 2;
 
     private Context mContext;
-    private ArrayList<Message> mMessageList;
+    private List<Message> mMessageList;
     private SimpleDateFormat dateFormatter = new SimpleDateFormat("HH:mm");
 
-    public MessageListAdapter(ArrayList<Message> messageList, Context context) {
+    public MessageListAdapter(List<Message> messageList, Context context) {
         mContext = context;
         mMessageList = messageList;
     }
@@ -89,15 +89,6 @@ public class MessageListAdapter extends RecyclerView.Adapter {
         void bind(Message message) {
             messageText.setText(message.getMessage());
             timeText.setText(dateFormatter.format(message.getDate()));
-            /*
-            Calendar calendar = Calendar.getInstance();
-            int hour = calendar.get(Calendar.HOUR_OF_DAY);
-            int minute = calendar.get(Calendar.MINUTE);
-            if (minute < 10)
-                timeText.setText(hour + ":0" + minute);
-            else
-                timeText.setText(hour + ":" + minute);
-            */
         }
     }
 

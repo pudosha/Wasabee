@@ -28,7 +28,7 @@ class SocketIOService : Service() {
             options.query = "authToken=$token"
             options.forceNew = true;
             Log.d("abc", "a")
-            this.io = IO.socket("http://52.15.191.177", options)
+            this.io = IO.socket("http://192.168.1.141:8080", options)
             this.io!!.on("newMessage", onNewMessage);
             this.io!!.connect()
 
