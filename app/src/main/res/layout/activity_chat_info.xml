@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         style="@style/LayoutStyle"
-        tools:context=".NewChatPeopleActivity">
+        tools:context="spb.summer_practice.wasabee.NewChatPeopleActivity">
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"

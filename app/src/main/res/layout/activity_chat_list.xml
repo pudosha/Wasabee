@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         style="@style/LayoutStyle"
-        tools:context=".ChatListActivity" android:id="@+id/constraintLayout">
+        tools:context="spb.summer_practice.wasabee.ChatListActivity" android:id="@+id/constraintLayout">
 
     <TextView
             android:text="@string/chats"

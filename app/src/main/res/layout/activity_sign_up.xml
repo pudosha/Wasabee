@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         style="@style/LayoutStyle"
-        tools:context=".SignUpActivity">
+        tools:context="spb.summer_practice.wasabee.SignUpActivity">
 
     <EditText
             android:layout_width="wrap_content"

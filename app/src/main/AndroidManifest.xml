@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.example.wasabee">
+          package="spb.summer_practice.wasabee">
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
@@ -11,27 +11,27 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".ChatInfoActivity">
+        <activity android:name="spb.summer_practice.wasabee.ChatInfoActivity">
         </activity>
-        <activity android:name=".CreateChatActivity">
+        <activity android:name="spb.summer_practice.wasabee.CreateChatActivity">
         </activity>
-        <activity android:name=".NewChatPeopleActivity">
+        <activity android:name="spb.summer_practice.wasabee.NewChatPeopleActivity">
         </activity>
-        <activity android:name=".ChatListActivity">
+        <activity android:name="spb.summer_practice.wasabee.ChatListActivity">
         </activity>
-        <activity android:name=".MainMenuActivity">
+        <activity android:name="spb.summer_practice.wasabee.MainMenuActivity">
         </activity>
-        <activity android:name=".SignUpActivity">
+        <activity android:name="spb.summer_practice.wasabee.SignUpActivity">
         </activity>
-        <activity android:name=".MessageListActivity">
+        <activity android:name="spb.summer_practice.wasabee.MessageListActivity">
         </activity>
-        <activity android:name=".LoginActivity">
+        <activity android:name="spb.summer_practice.wasabee.LoginActivity">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
-                    android:value="com.example.wasabee.StartingUpActivity"/>
+                    android:value="spb.summer_practice.wasabee.StartingUpActivity"/>
         </activity>
         <activity
-                android:name=".StartingUpActivity"
+                android:name="spb.summer_practice.wasabee.StartingUpActivity"
                 android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -41,10 +41,10 @@
         </activity>
 
         <service
-                android:name=".SocketIOService"
+                android:name="spb.summer_practice.wasabee.SocketIOService"
                 android:exported="false"/>
         <service
-                android:name=".NetworkService"
+                android:name="spb.summer_practice.wasabee.NetworkService"
                 android:exported="false"/>
     </application>
 
