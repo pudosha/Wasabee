@@ -11,8 +11,7 @@
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:text="a"
+            android:inputType="text"
             android:ems="10"
             style="@style/TextStyle"
             android:gravity="start"
@@ -27,7 +26,6 @@
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:ems="10"
-            android:text="aaaaaaa"
             style="@style/TextStyle"
             android:gravity="start"
             android:id="@+id/edittext_password_login"
