@@ -5,14 +5,10 @@ import android.view.ContextMenu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.widget.AdapterView
-import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import spb.summer_practice.wasabee.R
 import spb.summer_practice.wasabee.data.model.ChatPreview
 import kotlinx.android.synthetic.main.activity_chat_list.*
 import retrofit2.Call
@@ -56,7 +52,7 @@ class ChatListActivity : AppCompatActivity(), ChatListAdapter.OnChatListener {
         chats.add(Chat("Podgotovochka", "JJJJJJJ fezeka", "22:19", "Alexander Ognёv"))
         */
         newChatButton.setOnClickListener {
-            startActivity(Intent(this, NewChatPeopleActivity::class.java))
+            startActivity(Intent(this, CreateChatActivity::class.java))
         }
 
         //val editButt: Button = findViewById(R.id.editButton) as Button
