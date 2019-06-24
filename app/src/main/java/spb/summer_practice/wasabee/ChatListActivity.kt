@@ -74,16 +74,13 @@ class ChatListActivity : AppCompatActivity(), ChatListAdapter.OnChatListener {
     }
 
 
-    /*override fun onContextItemSelected(item: MenuItem): Boolean {
-        val info = item.menuInfo as AdapterView.AdapterContextMenuInfo
-        return when (item.itemId) {
-            R.id.delete -> {
-                deleteNote(info.id)
-                true
-            }
-            else -> super.onContextItemSelected(item)
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.deleteChat ) {
+            Toast.makeText(this, "Chat deleted", Toast.LENGTH_SHORT).show()
+            return true
         }
-    }*/
+        else return false
+    }
 
     /*
     override fun onContextItemSelected(item: MenuItem): Boolean {
