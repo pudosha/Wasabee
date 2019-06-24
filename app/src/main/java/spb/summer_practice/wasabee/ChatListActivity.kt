@@ -2,8 +2,10 @@ package spb.summer_practice.wasabee
 import android.content.Intent
 import android.os.Bundle
 import android.view.ContextMenu
+import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.AdapterView
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -16,6 +18,7 @@ import kotlinx.android.synthetic.main.activity_chat_list.*
 import retrofit2.Call
 import retrofit2.Response
 import java.util.*
+
 class ChatListActivity : AppCompatActivity(), ChatListAdapter.OnChatListener {
     lateinit var chats: ArrayList<ChatPreview>
     private lateinit var mAdapter: ChatListAdapter
@@ -23,6 +26,7 @@ class ChatListActivity : AppCompatActivity(), ChatListAdapter.OnChatListener {
     private var mBounded = false
     private var mServer: SocketIOService? = null
     private lateinit var API: JSONPlaceHolderAPI
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat_list)
@@ -54,20 +58,38 @@ class ChatListActivity : AppCompatActivity(), ChatListAdapter.OnChatListener {
         newChatButton.setOnClickListener {
             startActivity(Intent(this, NewChatPeopleActivity::class.java))
         }
+
         //val editButt: Button = findViewById(R.id.editButton) as Button
         //registerForContextMenu(editButt)
+
+        val chatList: RecyclerView = findViewById(R.id.recyclerview_chat_list) as RecyclerView
+        registerForContextMenu(chatList)
     }
-    /*
+
     override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenu.ContextMenuInfo?) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        menu.setHeaderTitle("Context Menu for buttons");
-        menu.add(0, v.getId(), 0, "Batton action 1");
-        menu.add(0, v.getId(), 0, "Button action 2");
+        super.onCreateContextMenu(menu, v, menuInfo)
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.chat_menu, menu)
+        //menu.add(0, v.id, 0, "Another action")
+    }
+
+
+    /*override fun onContextItemSelected(item: MenuItem): Boolean {
+        val info = item.menuInfo as AdapterView.AdapterContextMenuInfo
+        return when (item.itemId) {
+            R.id.delete -> {
+                deleteNote(info.id)
+                true
+            }
+            else -> super.onContextItemSelected(item)
+        }
     }*/
+
+    /*
     override fun onContextItemSelected(item: MenuItem): Boolean {
         Toast.makeText(this, "Selected Item: " + item.getTitle(), Toast.LENGTH_SHORT).show()
         return true
-    }
+    }*/
     override fun onChatClick(position: Int) {
         val goToMessagesIntent = Intent(this, MessageListActivity::class.java)
         goToMessagesIntent.putExtra("chatID", chats.get(position).chat.chatID)
