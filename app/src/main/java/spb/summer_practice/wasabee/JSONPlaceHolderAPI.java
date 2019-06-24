@@ -23,6 +23,12 @@ public interface JSONPlaceHolderAPI {
     @GET("/getChatList")
     Call<ArrayList<ChatPreview>> getChatList();
 
+    @POST("/createChat")
+    Call<Chat> createChat(@Body JsonObject newChatInfo);
+
+    @POST("/deleteChat")
+    Call<Chat> deleteChat(@Body JsonObject chatInfo);
+
     @GET("/getMessages")
     Call<ArrayList<Message>> getMessages(
             @Query("chatID") String chatID,
@@ -30,8 +36,11 @@ public interface JSONPlaceHolderAPI {
             @Query("messageCount") Integer messageCount
     );
 
-    @POST("/createChat")
-    Call<Chat> createChat(@Body JsonObject newChatInfo);
+    @POST("/editMessage")
+    Call<Chat> editMessage(@Body JsonObject editedMessageInfo);
+
+    @POST("/deleteMessage")
+    Call<Chat> deleteMessage(@Body JsonObject messageInfo);
 
 
 }
