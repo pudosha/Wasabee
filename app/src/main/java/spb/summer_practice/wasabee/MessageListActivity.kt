@@ -4,11 +4,14 @@ import android.content.*
 import android.os.Bundle
 import android.os.IBinder
 import android.util.Log
+import android.view.ContextMenu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import spb.summer_practice.wasabee.R
 import spb.summer_practice.wasabee.SocketIOService.LocalBinder
 import spb.summer_practice.wasabee.data.model.Message
 import com.google.gson.Gson
@@ -74,7 +77,35 @@ class MessageListActivity : AppCompatActivity() {
         chatInfo.setOnClickListener {
             startActivity(Intent(this, ChatInfoActivity::class.java))
         }
+
+        val messageList: RecyclerView = findViewById(R.id.recyclerview_message_list) as RecyclerView
+        registerForContextMenu(messageList)
     }
+
+    /*
+    override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenu.ContextMenuInfo?) {
+        super.onCreateContextMenu(menu, v, menuInfo)
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.message_sent_menu, menu)
+    }
+
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.editMessage -> {
+                Toast.makeText(this, "This feature is a work in progress", Toast.LENGTH_SHORT).show()
+                true
+            }
+            R.id.forwardMessage -> {
+                Toast.makeText(this, "Yup, still a work in progress", Toast.LENGTH_SHORT).show()
+                true
+            }
+            R.id.deleteMessage -> {
+                Toast.makeText(this, "Work in progress", Toast.LENGTH_SHORT).show()
+                true
+            }
+            else -> super.onContextItemSelected(item)
+        }
+    }*/
 
     override fun onStart() {
         super.onStart()

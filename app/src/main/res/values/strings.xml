@@ -18,6 +18,7 @@
     <string name="edit">Edit</string>
     <string name="search">Search</string>
     <string name="delete">Delete</string>
+    <string name="forward">Forward</string>
     <string name="new_chat">New chat</string>
     <string name="next">Next</string>
     <string name="group_name">Group name</string>

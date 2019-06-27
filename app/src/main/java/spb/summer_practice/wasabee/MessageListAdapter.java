@@ -2,6 +2,7 @@ package spb.summer_practice.wasabee;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,7 +89,7 @@ public class MessageListAdapter extends RecyclerView.Adapter {
         }
     }
 
-    private class SentMessageHolder extends RecyclerView.ViewHolder {
+    private class SentMessageHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
         TextView messageText, timeText;
 
         SentMessageHolder(View itemView) {
@@ -96,15 +97,20 @@ public class MessageListAdapter extends RecyclerView.Adapter {
 
             messageText = (TextView) itemView.findViewById(R.id.text_message_body);
             timeText = (TextView) itemView.findViewById(R.id.time);
+
+            itemView.setOnCreateContextMenuListener(this);
         }
 
         void bind(Message message) {
             messageText.setText(message.getMessage());
             timeText.setText(dateFormatter.format(message.getDate()));
         }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo contextMenuInfo) { }
     }
 
-    private class ReceivedMessageHolder extends RecyclerView.ViewHolder {
+    private class ReceivedMessageHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
         TextView messageText, timeText, nameText;
 
         ReceivedMessageHolder(View itemView) {
@@ -113,6 +119,8 @@ public class MessageListAdapter extends RecyclerView.Adapter {
             messageText = (TextView) itemView.findViewById(R.id.text_message_body);
             timeText = (TextView) itemView.findViewById(R.id.time);
             nameText = (TextView) itemView.findViewById(R.id.sender_name);
+
+            itemView.setOnCreateContextMenuListener(this);
         }
 
         void bind(Message message) {
@@ -129,10 +137,15 @@ public class MessageListAdapter extends RecyclerView.Adapter {
             messageText.setText(message.getMessage());
             timeText.setText(dateFormatter.format(message.getDate()));
             nameText.setText(message.getUsername());
+
+            itemView.setOnCreateContextMenuListener(this);
         }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo contextMenuInfo) { }
     }
 
-    private class SystemMessageHolder extends RecyclerView.ViewHolder {
+    private class SystemMessageHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
         TextView messageText;
 
         SystemMessageHolder(View itemView) {
@@ -143,5 +156,8 @@ public class MessageListAdapter extends RecyclerView.Adapter {
         void bind(Message message) {
             messageText.setText(message.getMessage());
         }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo contextMenuInfo) { }
     }
 }

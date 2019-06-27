@@ -60,6 +60,7 @@ public class ChatListAdapter extends RecyclerView.Adapter {
             lastMessageText = (TextView) itemView.findViewById(R.id.last_message);
             timeText = (TextView) itemView.findViewById(R.id.time);
             senderNameText = (TextView) itemView.findViewById(R.id.sender_name);
+
             this.onChatListener = onChatListener;
             itemView.setOnClickListener(this);
             itemView.setOnCreateContextMenuListener(this);
