@@ -5,6 +5,7 @@ import android.view.ContextMenu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.AdapterView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,6 +15,9 @@ import kotlinx.android.synthetic.main.activity_chat_list.*
 import retrofit2.Call
 import retrofit2.Response
 import java.util.*
+import android.widget.AdapterView.AdapterContextMenuInfo
+
+
 
 class ChatListActivity : AppCompatActivity(), ChatListAdapter.OnChatListener {
     lateinit var chats: ArrayList<ChatPreview>
@@ -72,10 +76,11 @@ class ChatListActivity : AppCompatActivity(), ChatListAdapter.OnChatListener {
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
         //val info = item.menuInfo as AdapterView.AdapterContextMenuInfo //не знаю что это и зачем
+        //val info = item.menuInfo as AdapterView.AdapterContextMenuInfo?
         return when (item.itemId) {
             R.id.deleteChat -> {
                 //deleteChat(info.id)
-                Toast.makeText(this, "Chat deleted", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "This feature is a work in progress", Toast.LENGTH_SHORT).show()
                 true
             }
             else -> super.onContextItemSelected(item)
